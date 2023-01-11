@@ -1,27 +1,15 @@
 import pandas as pd
 
+gsmStructure = {}
 
-def get2G():
+def get2G(site):
     df = pd.read_excel("C:\\Users\\Alvaro.Arrabal\\Desktop\\IT\\babysittingPython\\Data\\2g.xlsx")
 
-    data =  df.groupby("Cell Name").agg({"2G_QF_Cell_Availability_Rate(%)":lambda x: list(x),
-                                        "CELL.SPEECH.DISC.TIMES.NO.CIRCUIT.CHAN":lambda x: list(x),
-                                        "2G_QF_DCR_Voice(%)":lambda x: list(x),
-                                        "2G_QF_CSSR_Data(%)":lambda x: list(x),
-                                        "2G_QF_CSSR_Voice(%)":lambda x: list(x),
-                                        "2G_QF_Initiated_Calls(#)":lambda x: list(x),
-                                        "2G_QF_ICMBand_(% Samples >3)(%)":lambda x: list(x),
-                                        "2G_QF_DL_Data_Traffic(kB)":lambda x: list(x),
-                                        "2G_QF_UL_Data_Traffic(kB)":lambda x: list(x),}
-                                        )
-    
-    
-    
-    
-    
-    
-    
-    
+    data =  df.groupby("Cell Name")
+
+    avalilability = data.get_group(site)["2G_QF_Cell_Availability_Rate(%)"].tolist()
+    dropVoz = data.get_group(site)["2G_QF_DCR_Voice(%)"].tolist()
+    print(dropVoz)
     
 
 def get3G():
@@ -34,5 +22,5 @@ def get4G():
 def get5G():
     pass
 
-
-get2G()
+site = "M1990E2"
+get2G(site)
