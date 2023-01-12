@@ -1,4 +1,3 @@
-import getDataQuery
 
 def CDR():
     pass
