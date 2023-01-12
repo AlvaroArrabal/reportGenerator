@@ -7,10 +7,14 @@ def get2G(site):
 
     data =  df.groupby("Cell Name")
 
-    avalilability = data.get_group(site)["2G_QF_Cell_Availability_Rate(%)"].tolist()
-    dropVoz = data.get_group(site)["2G_QF_DCR_Voice(%)"].tolist()
-    print(dropVoz)
-    
+    cell = data.get_group(site)
+
+    pass
+    for i in range(len(cell)):
+        if cell.iloc[i]["2G_QF_Initiated_Calls(#)"] > 0:
+            a = cell.iloc[i]["Date"]
+            b = cell.iloc[i]["2G_QF_Initiated_Calls(#)"]
+            print(f"{a} - {b}")
 
 def get3G():
     pass
