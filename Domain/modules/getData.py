@@ -20,8 +20,6 @@ def getNOK(numCells,numTechs):
             if columnsList[i].iloc[j][columns[i][2]] == "NOK":
                 NOKList.append(columnsList[i].iloc[j]["Unnamed: 3"])
                 
-            
-    print(NOKList)
 
 gsmStructure = {}
 

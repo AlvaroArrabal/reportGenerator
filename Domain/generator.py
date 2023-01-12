@@ -4,5 +4,5 @@ import pandas as pd
 
 data = getData.get2G("M1990E2")
 
-a = getData.getNOK(3,1)
-#print(data)
+a = getData.getNOK(2,1)
+
