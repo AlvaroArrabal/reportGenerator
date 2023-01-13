@@ -1,7 +1,11 @@
 import pandas as pd
+import os
+
+currentPath = os.getcwd()
 
 def getNOK(numCells,numTechs):
-    df = pd.read_excel("C:\\Users\\Alvaro.Arrabal\\Desktop\\IT\\babysittingPython\\Data\\babysitting.xlsx")
+    pathNOK = currentPath + "\\Data\\Babysitting.xlsx"
+    df = pd.read_excel(pathNOK)
 
     columns = []
 
@@ -21,22 +25,39 @@ def getNOK(numCells,numTechs):
                 NOKList.append(columnsList[i].iloc[j]["Unnamed: 3"])
                 
 
-gsmStructure = {}
-
 def get2G(site):
-    df = pd.read_excel("C:\\Users\\Alvaro.Arrabal\\Desktop\\IT\\babysittingPython\\Data\\2g.xlsx")
+    path2g = currentPath + "\\Data\\2g.xlsx"
+    df = pd.read_excel(path2g)
 
     data =  df.groupby("Cell Name")
 
     return data.get_group(site)
 
 
-def get3G():
-    pass
+def get3G(site):
+    path3g = currentPath + "\\Data\\3g.xlsx"
+    df = pd.read_excel(path3g)
+
+    data =  df.groupby("Cell Name")
+
+    return data.get_group(site)
 
 
-def get4G():
-    pass
+def get4G(site):
+    path4g = currentPath + "\\Data\\4g.xlsx"
+    df = pd.read_excel(path4g)
 
-def get5G():
-    pass
+    data =  df.groupby("Cell Name")
+
+    return data.get_group(site)
+
+def get5G(site):
+    path5g = currentPath + "\\Data\\5g.xlsx"
+    df = pd.read_excel(path5g)
+
+    data =  df.groupby("Cell Name")
+
+    return data.get_group(site)
+
+
+
