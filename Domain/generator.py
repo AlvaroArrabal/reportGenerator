@@ -53,9 +53,9 @@ def justification_consolidation(numCells,numTechs):
             case '2G ICMBand () ':
                 pass
             case '3G RTWP (dBm)':
-                pass
+                listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
             case '4G Interference PUSCH (dBm)':
-                listNOKchecked.append(analyzeKPI.PUSCH(listNOK[i]))
+                listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
             case '2G Cell Availability (%)':
                 listNOKchecked.append(analyzeKPI.availability(listNOK[i],"2G"))
             case '3G Cell Availability (%)':

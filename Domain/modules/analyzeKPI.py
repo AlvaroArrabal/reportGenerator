@@ -68,18 +68,27 @@ def intraLTEHosr ():
 def SRVCC():
     pass
 
-def PUSCH(NOK):
+def RSSI(NOK,tech):
     startTime = time.time()
-    df = modules.getData.get4G(NOK[0])
 
-    data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
-    totalPusch = []
+    match tech:
+        case "3G":
+            df = modules.getData.get3G(NOK[0])
+            data = df.loc[:,["Date","VS.MeanRTWP(dBm)"]]
+        case "4G":
+            df = modules.getData.get4G(NOK[0])
+            data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
+        case "5G":
+            df = modules.getData.get5G(NOK[0])
+            data = df.loc[:,["Date","5G_QF RSSI(dBm)"]]
+    
+    totalRssi = []
     for i in range(len(data)):
         hour = data.iloc[i][0][-5:]
         if hour in offPeakHours:
-            totalPusch.append(data.iloc[i][1])
+            totalRssi.append(data.iloc[i][1])
     
-    average = sum(totalPusch)/len(totalPusch)
+    average = sum(totalRssi)/len(totalRssi)
     print("--- %s seconds <PUSCH> ---" % (time.time() - startTime))
     if average > -114:
         return [NOK[0],NOK[1],False]       # NOK
