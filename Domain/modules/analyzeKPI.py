@@ -15,19 +15,22 @@ def iniciated_calls(NOK,tech):
     match tech:
         case "2G":
             df = modules.getData.get2G(NOK[0])
-            data = df.loc[:,["Date","2G_QF_Established_Calls(#)"]]
+            data = df.loc[:,["2G_QF_Established_Calls(#)"]]
+            total = data["2G_QF_Established_Calls(#)"].sum()
         case "3G":
             df = modules.getData.get3G(NOK[0])
-            data = df.loc[:,["Date","3G_QF_Initiated_Calls(#)"]]
+            data = df.loc[:,["3G_QF_Initiated_Calls(#)"]]
+            total = data["3G_QF_Initiated_Calls(#)"].sum()
         case "4G":
             df = modules.getData.get4G(NOK[0])
-            data = df.loc[:,["Date","4G_QF_VoLTE_Initiated_Calls(#)"]]
+            data = df.loc[:,["4G_QF_VoLTE_Initiated_Calls(#)"]]
+            total = data["4G_QF_VoLTE_Initiated_Calls(#)"].sum()
     
-    a = data["2G_QF_Established_Calls(#)"].mean()
-    
-
     print("--- %s seconds <iniciated_calls> ---" % (time.time() - startTime))
-    
+    if total > 0:
+        return [NOK[0],NOK[1],True]       # OK
+    else:
+        return [NOK[0],NOK[1],False]      # NOK
 
 def throughput():
     pass
@@ -45,7 +48,7 @@ def availability(NOK,tech):
             
         case "3G":
             df = modules.getData.get3G(NOK[0])
-            data = df.loc[:,["Date","3G_QF_Cell_Availability_Hourly(%)"]]
+            data = df.loc[:,["3G_QF_Cell_Availability_Hourly(%)"]]
             average = data["3G_QF_Cell_Availability_Hourly(%)"].mean()
         case "4G":
             df = modules.getData.get4G(NOK[0])
@@ -56,7 +59,6 @@ def availability(NOK,tech):
             data = df.loc[:,["5G_QF Cell Availability(%)"]]
             average = data["5G_QF Cell Availability(%)"].mean()
     
-
     print("--- %s seconds <availability> ---" % (time.time() - startTime))
     if average < 95:
         return [NOK[0],NOK[1],False]       # NOK

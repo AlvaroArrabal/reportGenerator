@@ -29,9 +29,9 @@ def justification_consolidation(numCells,numTechs):
             case '2G Iniciated calls':
                 listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"2G"))
             case '3G Iniciated calls':
-                pass
+                listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"3G"))
             case '4G Iniciated calls (VoLTE)':
-                pass
+                listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"4G"))
             case '2G DL Data traffic (KB)':
                 pass
             case '2G UL Data traffic (KB)':
