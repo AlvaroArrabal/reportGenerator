@@ -1,13 +1,13 @@
 from modules import getData,analyzeKPI
 import pandas as pd
+import time
 
 
-data = getData.get2G("M1990E2")
 
 def justification_consolidation(numCells,numTechs):
 
     listNOK = getData.getNOK_consolidation(numCells,numTechs)
-
+    startTime = time.time()
     listNOKchecked = []
     for i in range(len(listNOK)):
         match listNOK[i][1]:
@@ -55,15 +55,13 @@ def justification_consolidation(numCells,numTechs):
             case '3G RTWP (dBm)':
                 pass
             case '4G Interference PUSCH (dBm)':
-                res = analyzeKPI.PUSCH(listNOK[i])
-                print(res)
-                
+                listNOKchecked.append(analyzeKPI.PUSCH(listNOK[i]))
             case '2G Cell Availability (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.availability(listNOK[i],"2G"))
             case '3G Cell Availability (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.availability(listNOK[i],"3G"))
             case '4G Cell Availability (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.availability(listNOK[i],"4G"))
             case '4G MIMO (Rank2) (%)':
                 pass
             case '4G MIMO (Rank4) (%)':
@@ -82,10 +80,12 @@ def justification_consolidation(numCells,numTechs):
                 pass
             case '4G SRVCC HO Att':
                 pass
-
+    print("--- %s seconds <justification_consolidation> ---" % (time.time() - startTime))
+    return listNOKchecked
           
 a = justification_consolidation(3,4)
 
+print(a)
 
 def justification_700(numCells,numTechs):
     

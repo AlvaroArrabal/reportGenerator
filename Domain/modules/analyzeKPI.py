@@ -1,5 +1,6 @@
 import pandas as pd
 import modules.getData
+import time
 
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
 
@@ -18,8 +19,33 @@ def throughput():
 def interference():
     pass
 
-def availability():
-    pass
+def availability(NOK,tech):
+    startTime = time.time()
+    match tech:
+        case "2G":
+            df = modules.getData.get2G(NOK[0])
+            data = df.loc[:,["Date","2G_QF_Cell_Availability_Rate(%)"]]
+        case "3G":
+            df = modules.getData.get3G(NOK[0])
+            data = df.loc[:,["Date","3G_QF_Cell_Availability_Hourly(%)"]]
+        case "4G":
+            df = modules.getData.get4G(NOK[0])
+            data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
+        case "5G":
+            df = modules.getData.get5G(NOK[0])
+            data = df.loc[:,["Date","5G_QF Cell Availability(%)"]]
+    
+    totalAvailability = []
+    for i in range(len(data)):
+        totalAvailability.append(data.iloc[i][1])
+
+    average = sum(totalAvailability)/len(totalAvailability)
+    print("--- %s seconds <availability> ---" % (time.time() - startTime))
+    if average < 95:
+        return [NOK[0],NOK[1],False]       # NOK
+    else:
+        return [NOK[0],NOK[1],True]       # OK
+    
 
 def MIMO_rank2():
     pass
@@ -43,21 +69,21 @@ def SRVCC():
     pass
 
 def PUSCH(NOK):
-
+    startTime = time.time()
     df = modules.getData.get4G(NOK[0])
 
     data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
-    listPusch = []
+    totalPusch = []
     for i in range(len(data)):
         hour = data.iloc[i][0][-5:]
         if hour in offPeakHours:
-            listPusch.append(data.iloc[i][1])
+            totalPusch.append(data.iloc[i][1])
     
-    average = sum(listPusch)/len(listPusch)
-
+    average = sum(totalPusch)/len(totalPusch)
+    print("--- %s seconds <PUSCH> ---" % (time.time() - startTime))
     if average > -114:
-        return [NOK[0],False]       # NOK
+        return [NOK[0],NOK[1],False]       # NOK
     else:
-        return [NOK[0],True]       # OK
+        return [NOK[0],NOK[1],True]       # OK
 
 
