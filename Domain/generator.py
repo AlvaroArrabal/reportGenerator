@@ -27,7 +27,7 @@ def justification_consolidation(numCells,numTechs):
             case '4G CSSR CS (%)':
                 pass
             case '2G Iniciated calls':
-                pass
+                listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"2G"))
             case '3G Iniciated calls':
                 pass
             case '4G Iniciated calls (VoLTE)':
