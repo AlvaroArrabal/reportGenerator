@@ -5,6 +5,7 @@ import time
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
 
 def CDR():
+    # check for multiple peaks or a single peak (or two)
     pass
 
 def CSSR():
@@ -35,7 +36,25 @@ def iniciated_calls(NOK,tech):
 def throughput():
     pass
 
-def interference():
+def interference(NOK):
+    # For ICM Band in 2G
+    startTime = time.time()
+
+    df = modules.getData.get2G(NOK[0])
+    data = df.loc[:,["Date","2G_QF_ICMBand_(% Samples >3)(%)"]]
+
+    totalRssi = []
+    for i in range(len(data)):
+        hour = data.iloc[i][0][-5:]
+        if hour in offPeakHours:
+            totalRssi.append(data.iloc[i][1])
+    
+    average = sum(totalRssi)/len(totalRssi)
+    print("--- %s seconds <ICM Band> ---" % (time.time() - startTime))
+    if average > 2:
+        return [NOK[0],NOK[1],False]        # NOK
+    else:
+        return [NOK[0],NOK[1],True]         # OK
     pass
 
 def availability(NOK,tech):
@@ -104,7 +123,7 @@ def RSSI(NOK,tech):
     match tech:
         case "3G":
             df = modules.getData.get3G(NOK[0])
-            data = df.loc[:,["Date","VS.MeanRTWP(dBm)"]]
+            data = df.loc[:,["Date","3G_QF_RSSI_UL(dBm)"]]
         case "4G":
             df = modules.getData.get4G(NOK[0])
             data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]

@@ -51,6 +51,7 @@ def justification_consolidation(numCells,numTechs):
             case 'Tput UL 4G >500kbps':
                 pass
             case '2G ICMBand () ':
+                listNOKchecked.append(analyzeKPI.interference(listNOK[i]))
                 pass
             case '3G RTWP (dBm)':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
@@ -84,7 +85,7 @@ def justification_consolidation(numCells,numTechs):
     print("--- %s seconds <justification_consolidation> ---" % (time.time() - startTime))
     return listNOKchecked
           
-a = justification_consolidation(3,2)
+a = justification_consolidation(3,4)
 
 print(a)
 
