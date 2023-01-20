@@ -84,8 +84,19 @@ def CA_scell():
 def intraLTEHosr ():
     pass
 
-def SRVCC():
-    pass
+def SRVCC(NOK):
+    startTime = time.time()
+
+    df = modules.getData.get4G(NOK[0])
+    data = df.loc[:,["Date","SRVCC_Succ(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
+
+    peakCalls = data["4G_QF_VoLTE_Initiated_Calls(#)"].max()
+
+    print("--- %s seconds <SRVCC> ---" % (time.time() - startTime))
+    if peakCalls > 15:
+        return [NOK[0],NOK[1],False]        # NOK
+    else:
+        return [NOK[0],NOK[1],True]         # OK
 
 def RSSI(NOK,tech):
     startTime = time.time()
@@ -110,8 +121,8 @@ def RSSI(NOK,tech):
     average = sum(totalRssi)/len(totalRssi)
     print("--- %s seconds <PUSCH> ---" % (time.time() - startTime))
     if average > -114:
-        return [NOK[0],NOK[1],False]       # NOK
+        return [NOK[0],NOK[1],False]        # NOK
     else:
-        return [NOK[0],NOK[1],True]       # OK
+        return [NOK[0],NOK[1],True]         # OK
 
 

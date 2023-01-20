@@ -79,11 +79,12 @@ def justification_consolidation(numCells,numTechs):
             case '4G IntraLTE HOSR (including preparation) (%)':
                 pass
             case '4G SRVCC HO Att':
+                listNOKchecked.append(analyzeKPI.SRVCC(listNOK[i]))
                 pass
     print("--- %s seconds <justification_consolidation> ---" % (time.time() - startTime))
     return listNOKchecked
           
-a = justification_consolidation(3,4)
+a = justification_consolidation(3,2)
 
 print(a)
 
