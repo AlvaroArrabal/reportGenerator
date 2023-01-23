@@ -1,7 +1,12 @@
 from modules import getData,analyzeKPI
 import pandas as pd
 import time
-
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import datetime
+import matplotlib.dates as mdates
+import matplotlib.cbook as cbook
 
 
 def justification_consolidation(numCells,numTechs):
@@ -56,6 +61,7 @@ def justification_consolidation(numCells,numTechs):
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
             case '4G Interference PUSCH (dBm)':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
+                create_graph(listNOK[i],"4G_QF_UL_PUSCH_Interference(dBm)")
             case '2G Cell Availability (%)':
                 listNOKchecked.append(analyzeKPI.availability(listNOK[i],"2G"))
             case '3G Cell Availability (%)':
@@ -84,9 +90,7 @@ def justification_consolidation(numCells,numTechs):
     print("--- %s seconds <justification_consolidation> ---" % (time.time() - startTime))
     return listNOKchecked
           
-a = justification_consolidation(3,4)
 
-print(a)
 
 def justification_expansion(numCells,numTechs):
     
@@ -103,8 +107,28 @@ def justification_expansion(numCells,numTechs):
             case 'Interference 4G PUSCH UL (RSSI UL 4G)':
                 print("PUSCH")
 
-def create_graph():
-    pass
+def create_graph(cell, nameKPI):
+
+    df = getData.get4G(cell[0])
+    data = df.loc[:,["Date",nameKPI]]
+    data["Date"] = pd.to_datetime(data["Date"])
+
+    fig, ax = plt.subplots(1,1,figsize=(13,8))
+
+    ax.plot(data["Date"], data[nameKPI])
+    fig.autofmt_xdate()
+
+    xfmt = mdates.DateFormatter('%m/%d-%H:%M:%S')
+    ax.xaxis.set_major_formatter(xfmt)
+    ax.grid()
+    ax.set_ylabel(nameKPI)
+    ax.set_xlabel("Date")
+
+    graphname = ".\\graphs\\" + cell[0] + "-" + nameKPI + ".png"
+
+    fig.savefig(graphname)
+
+
 
 def word():
     pass
