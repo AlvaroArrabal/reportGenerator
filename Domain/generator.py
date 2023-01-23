@@ -103,7 +103,8 @@ def justification_700(numCells,numTechs):
             case 'Interference 4G PUSCH UL (RSSI UL 4G)':
                 print("PUSCH")
 
-
+def create_graph():
+    pass
 
 def word():
     pass
