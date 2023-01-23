@@ -1,7 +1,12 @@
 from modules import getData,analyzeKPI
 import pandas as pd
 import time
-
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import datetime
+import matplotlib.dates as mdates
+import matplotlib.cbook as cbook
 
 
 def justification_consolidation(numCells,numTechs):
@@ -84,9 +89,7 @@ def justification_consolidation(numCells,numTechs):
     print("--- %s seconds <justification_consolidation> ---" % (time.time() - startTime))
     return listNOKchecked
           
-a = justification_consolidation(3,4)
 
-print(a)
 
 def justification_expansion(numCells,numTechs):
     
@@ -104,7 +107,31 @@ def justification_expansion(numCells,numTechs):
                 print("PUSCH")
 
 def create_graph():
-    pass
+
+    df = getData.get4G("CLMX7711N2A")
+    data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
+    
+    data["Date"] = pd.to_datetime(data["Date"])
+
+    fig, ax = plt.subplots()
+    
+    ax.plot(data["Date"], data["4G_QF_UL_PUSCH_Interference(dBm)"])
+    
+    fig.autofmt_xdate()
+
+    xfmt = mdates.DateFormatter('%m/%d-%H:%M:%S')
+    ax.xaxis.set_major_formatter(xfmt)
+    ax.grid()
+    
+    ax.set_title('PUSCH')
+    #plt.show()
+    fig.savefig("ejemplo.png")
+
+    
+
+startTime = time.time()
+create_graph()
+print("--- %s seconds <graph> ---" % (time.time() - startTime))
 
 def word():
     pass
