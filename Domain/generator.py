@@ -88,10 +88,10 @@ a = justification_consolidation(3,4)
 
 print(a)
 
-def justification_700(numCells,numTechs):
+def justification_expansion(numCells,numTechs):
     
     # 1º getNOK
-    listNOK = getData.getNOK_700(numCells,numTechs)
+    listNOK = getData.getNOK_expansion(numCells,numTechs)
     print(listNOK)
     
     # 2º type of NOK?

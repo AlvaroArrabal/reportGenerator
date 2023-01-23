@@ -5,7 +5,7 @@ import warnings
 import time
 
 
-def getNOK_700(numCells,numTechs):
+def getNOK_expansion(numCells,numTechs):
     pathNOK = currentPath + "\\Data\\Babysitting_1.xlsx"
     df = pd.read_excel(pathNOK, engine="openpyxl")
     columns = []
