@@ -52,7 +52,6 @@ def justification_consolidation(numCells,numTechs):
                 pass
             case '2G ICMBand () ':
                 listNOKchecked.append(analyzeKPI.interference(listNOK[i]))
-                pass
             case '3G RTWP (dBm)':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
             case '4G Interference PUSCH (dBm)':
@@ -68,11 +67,11 @@ def justification_consolidation(numCells,numTechs):
             case '4G MIMO (Rank4) (%)':
                 pass
             case '4G CSFB E2W':
-                pass
+                listNOKchecked.append(analyzeKPI.CSFB(listNOK[i]))
             case '4G CA in PCELL':
-                pass
+                listNOKchecked.append(analyzeKPI.CA(listNOK[i],"primaryCell"))
             case '4G CA in SCELL':
-                pass
+                listNOKchecked.append(analyzeKPI.CA(listNOK[i],"secondaryCell"))
             case '2G Speech disconnections':
                 pass
             case '3G Calls ending in 2G (%)':

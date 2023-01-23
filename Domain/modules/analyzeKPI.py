@@ -55,7 +55,7 @@ def interference(NOK):
         return [NOK[0],NOK[1],False]        # NOK
     else:
         return [NOK[0],NOK[1],True]         # OK
-    pass
+    
 
 def availability(NOK,tech):
     startTime = time.time()
@@ -91,14 +91,38 @@ def MIMO_rank2():
 def MIMO_rank4():
     pass
 
-def CSFB():
-    pass
+def CSFB(NOK):
+    startTime = time.time()
 
-def CA_pcell():
-    pass
+    df = modules.getData.get4G(NOK[0])
+    data = df.loc[:,["4G_QF_CSFB_E2W_Attempts(#)"]]
+    total = data["4G_QF_CSFB_E2W_Attempts(#)"].sum()
+    
+    print("--- %s seconds <CSFB> ---" % (time.time() - startTime))
+    if total > 0:
+        return [NOK[0],NOK[1],True]       # OK
+    else:
+        return [NOK[0],NOK[1],False]      # NOK
 
-def CA_scell():
-    pass
+def CA(NOK,num):
+    startTime = time.time()
+
+    match num:
+        case "primaryCell":
+            df = modules.getData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_CA_Primary_Cell(%)"]]
+            total = data["4G_QF_CA_Primary_Cell(%)"].sum()
+        case "secondaryCell":
+            df = modules.getData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_CA_Secondary_Cell(%)"]]
+            total = data["4G_QF_CA_Secondary_Cell(%)"].sum()
+    
+    print("--- %s seconds <CA> ---" % (time.time() - startTime))
+    if total > 0:
+        return [NOK[0],NOK[1],True]       # OK
+    else:
+        return [NOK[0],NOK[1],False]      # NOK
+
 
 def intraLTEHosr ():
     pass
@@ -109,13 +133,19 @@ def SRVCC(NOK):
     df = modules.getData.get4G(NOK[0])
     data = df.loc[:,["Date","SRVCC_Succ(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
 
-    peakCalls = data["4G_QF_VoLTE_Initiated_Calls(#)"].max()
+    peakSRVCC = data["SRVCC_Succ(#)"].max()
 
-    print("--- %s seconds <SRVCC> ---" % (time.time() - startTime))
-    if peakCalls > 15:
-        return [NOK[0],NOK[1],False]        # NOK
-    else:
+    if peakSRVCC > 0:
+        print("--- %s seconds <SRVCC> ---" % (time.time() - startTime))
         return [NOK[0],NOK[1],True]         # OK
+    else:
+        peakCalls = data["4G_QF_VoLTE_Initiated_Calls(#)"].max()
+
+        print("--- %s seconds <SRVCC> ---" % (time.time() - startTime))
+        if peakCalls > 15:
+            return [NOK[0],NOK[1],False]        # NOK
+        else:
+            return [NOK[0],NOK[1],True]         # OK
 
 def RSSI(NOK,tech):
     startTime = time.time()
@@ -138,7 +168,7 @@ def RSSI(NOK,tech):
             totalRssi.append(data.iloc[i][1])
     
     average = sum(totalRssi)/len(totalRssi)
-    print("--- %s seconds <PUSCH> ---" % (time.time() - startTime))
+    print("--- %s seconds <RSSI> ---" % (time.time() - startTime))
     if average > -114:
         return [NOK[0],NOK[1],False]        # NOK
     else:
