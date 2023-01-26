@@ -1,5 +1,5 @@
 import pandas as pd
-import modules.getData
+import modules.getQueryData
 import time
 
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
@@ -15,15 +15,15 @@ def iniciated_calls(NOK,tech):
     startTime = time.time()
     match tech:
         case "2G":
-            df = modules.getData.get2G(NOK[0])
+            df = modules.getQueryData.get2G(NOK[0])
             data = df.loc[:,["2G_QF_Established_Calls(#)"]]
             total = data["2G_QF_Established_Calls(#)"].sum()
         case "3G":
-            df = modules.getData.get3G(NOK[0])
+            df = modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["3G_QF_Initiated_Calls(#)"]]
             total = data["3G_QF_Initiated_Calls(#)"].sum()
         case "4G":
-            df = modules.getData.get4G(NOK[0])
+            df = modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_VoLTE_Initiated_Calls(#)"]]
             total = data["4G_QF_VoLTE_Initiated_Calls(#)"].sum()
     
@@ -40,7 +40,7 @@ def interference(NOK):
     # For ICM Band in 2G
     startTime = time.time()
 
-    df = modules.getData.get2G(NOK[0])
+    df = modules.getQueryData.get2G(NOK[0])
     data = df.loc[:,["Date","2G_QF_ICMBand_(% Samples >3)(%)"]]
 
     totalRssi = []
@@ -61,20 +61,20 @@ def availability(NOK,tech):
     startTime = time.time()
     match tech:
         case "2G":
-            df = modules.getData.get2G(NOK[0])
+            df = modules.getQueryData.get2G(NOK[0])
             data = df.loc[:,["2G_QF_Cell_Availability_Rate(%)"]]
             average = data["2G_QF_Cell_Availability_Rate(%)"].mean()
             
         case "3G":
-            df = modules.getData.get3G(NOK[0])
+            df = modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["3G_QF_Cell_Availability_Hourly(%)"]]
             average = data["3G_QF_Cell_Availability_Hourly(%)"].mean()
         case "4G":
-            df = modules.getData.get4G(NOK[0])
+            df = modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_Cell_Availability_Rate_Hourly(%)"]]
             average = data["4G_QF_Cell_Availability_Rate_Hourly(%)"].mean()
         case "5G":
-            df = modules.getData.get5G(NOK[0])
+            df = modules.getQueryData.get5G(NOK[0])
             data = df.loc[:,["5G_QF Cell Availability(%)"]]
             average = data["5G_QF Cell Availability(%)"].mean()
     
@@ -94,7 +94,7 @@ def MIMO_rank4():
 def CSFB(NOK):
     startTime = time.time()
 
-    df = modules.getData.get4G(NOK[0])
+    df = modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["4G_QF_CSFB_E2W_Attempts(#)"]]
     total = data["4G_QF_CSFB_E2W_Attempts(#)"].sum()
     
@@ -109,11 +109,11 @@ def CA(NOK,num):
 
     match num:
         case "primaryCell":
-            df = modules.getData.get4G(NOK[0])
+            df = modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_CA_Primary_Cell(%)"]]
             total = data["4G_QF_CA_Primary_Cell(%)"].sum()
         case "secondaryCell":
-            df = modules.getData.get4G(NOK[0])
+            df = modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_CA_Secondary_Cell(%)"]]
             total = data["4G_QF_CA_Secondary_Cell(%)"].sum()
     
@@ -130,7 +130,7 @@ def intraLTEHosr ():
 def SRVCC(NOK):
     startTime = time.time()
 
-    df = modules.getData.get4G(NOK[0])
+    df = modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["Date","SRVCC_Succ(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
 
     peakSRVCC = data["SRVCC_Succ(#)"].max()
@@ -152,13 +152,13 @@ def RSSI(NOK,tech):
 
     match tech:
         case "3G":
-            df = modules.getData.get3G(NOK[0])
+            df = modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["Date","3G_QF_RSSI_UL(dBm)"]]
         case "4G":
-            df = modules.getData.get4G(NOK[0])
+            df = modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
         case "5G":
-            df = modules.getData.get5G(NOK[0])
+            df = modules.getQueryData.get5G(NOK[0])
             data = df.loc[:,["Date","5G_QF RSSI(dBm)"]]
     
     totalRssi = []

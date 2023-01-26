@@ -1,20 +1,18 @@
-from modules import getData,analyzeKPI
+from modules import analyzeKPI,graph,getNOKreport
 import pandas as pd
 import time
-import matplotlib
-import matplotlib.pyplot as plt
-import numpy as np
-import datetime
-import matplotlib.dates as mdates
-import matplotlib.cbook as cbook
 
 
 def justification_consolidation(numCells,numTechs):
 
-    listNOK = getData.getNOK_consolidation(numCells,numTechs)
+    listNOK = getNOKreport.consolidation(numCells,numTechs)
+    KPIoverview = set()
+
     startTime = time.time()
     listNOKchecked = []
     for i in range(len(listNOK)):
+        KPIoverview.add(listNOK[i][1])
+
         match listNOK[i][1]:
             case '2G CDR CS (%)':
                 # 3º NOK_i = analyzeKPI
@@ -61,7 +59,7 @@ def justification_consolidation(numCells,numTechs):
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
             case '4G Interference PUSCH (dBm)':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
-                create_graph(listNOK[i],"4G_QF_UL_PUSCH_Interference(dBm)")
+                graph.create_graph(listNOK[i],"4G_QF_UL_PUSCH_Interference(dBm)")
             case '2G Cell Availability (%)':
                 listNOKchecked.append(analyzeKPI.availability(listNOK[i],"2G"))
             case '3G Cell Availability (%)':
@@ -88,14 +86,17 @@ def justification_consolidation(numCells,numTechs):
                 listNOKchecked.append(analyzeKPI.SRVCC(listNOK[i]))
                 pass
     print("--- %s seconds <justification_consolidation> ---" % (time.time() - startTime))
-    return listNOKchecked
+    return KPIoverview, listNOKchecked
           
+a,b = justification_consolidation(3,4)
 
+print(f"overview: {a}")
+print(f"detail: {b}")
 
 def justification_expansion(numCells,numTechs):
     
     # 1º getNOK
-    listNOK = getData.getNOK_expansion(numCells,numTechs)
+    listNOK = getNOKreport.expansion(numCells,numTechs)
     print(listNOK)
     
     # 2º type of NOK?
@@ -107,26 +108,7 @@ def justification_expansion(numCells,numTechs):
             case 'Interference 4G PUSCH UL (RSSI UL 4G)':
                 print("PUSCH")
 
-def create_graph(cell, nameKPI):
 
-    df = getData.get4G(cell[0])
-    data = df.loc[:,["Date",nameKPI]]
-    data["Date"] = pd.to_datetime(data["Date"])
-
-    fig, ax = plt.subplots(1,1,figsize=(13,8))
-
-    ax.plot(data["Date"], data[nameKPI])
-    fig.autofmt_xdate()
-
-    xfmt = mdates.DateFormatter('%m/%d-%H:%M:%S')
-    ax.xaxis.set_major_formatter(xfmt)
-    ax.grid()
-    ax.set_ylabel(nameKPI)
-    ax.set_xlabel("Date")
-
-    graphname = ".\\graphs\\" + cell[0] + "-" + nameKPI + ".png"
-
-    fig.savefig(graphname)
 
 
 
