@@ -1,6 +1,6 @@
 import pandas as pd
 import modules.getQueryData
-import time
+
 
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
 
@@ -12,7 +12,7 @@ def CSSR():
     pass
 
 def iniciated_calls(NOK,tech):
-    startTime = time.time()
+
     match tech:
         case "2G":
             df = modules.getQueryData.get2G(NOK[0])
@@ -27,7 +27,7 @@ def iniciated_calls(NOK,tech):
             data = df.loc[:,["4G_QF_VoLTE_Initiated_Calls(#)"]]
             total = data["4G_QF_VoLTE_Initiated_Calls(#)"].sum()
     
-    print("--- %s seconds <iniciated_calls> ---" % (time.time() - startTime))
+
     if total > 0:
         return [NOK[0],NOK[1],True]       # OK
     else:
@@ -38,7 +38,6 @@ def throughput():
 
 def interference(NOK):
     # For ICM Band in 2G
-    startTime = time.time()
 
     df = modules.getQueryData.get2G(NOK[0])
     data = df.loc[:,["Date","2G_QF_ICMBand_(% Samples >3)(%)"]]
@@ -50,7 +49,6 @@ def interference(NOK):
             totalRssi.append(data.iloc[i][1])
     
     average = sum(totalRssi)/len(totalRssi)
-    print("--- %s seconds <ICM Band> ---" % (time.time() - startTime))
     if average > 2:
         return [NOK[0],NOK[1],False]        # NOK
     else:
@@ -58,7 +56,6 @@ def interference(NOK):
     
 
 def availability(NOK,tech):
-    startTime = time.time()
     match tech:
         case "2G":
             df = modules.getQueryData.get2G(NOK[0])
@@ -78,7 +75,6 @@ def availability(NOK,tech):
             data = df.loc[:,["5G_QF Cell Availability(%)"]]
             average = data["5G_QF Cell Availability(%)"].mean()
     
-    print("--- %s seconds <availability> ---" % (time.time() - startTime))
     if average < 95:
         return [NOK[0],NOK[1],False]       # NOK
     else:
@@ -92,20 +88,17 @@ def MIMO_rank4():
     pass
 
 def CSFB(NOK):
-    startTime = time.time()
 
     df = modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["4G_QF_CSFB_E2W_Attempts(#)"]]
     total = data["4G_QF_CSFB_E2W_Attempts(#)"].sum()
     
-    print("--- %s seconds <CSFB> ---" % (time.time() - startTime))
     if total > 0:
         return [NOK[0],NOK[1],True]       # OK
     else:
         return [NOK[0],NOK[1],False]      # NOK
 
 def CA(NOK,num):
-    startTime = time.time()
 
     match num:
         case "primaryCell":
@@ -117,7 +110,6 @@ def CA(NOK,num):
             data = df.loc[:,["4G_QF_CA_Secondary_Cell(%)"]]
             total = data["4G_QF_CA_Secondary_Cell(%)"].sum()
     
-    print("--- %s seconds <CA> ---" % (time.time() - startTime))
     if total > 0:
         return [NOK[0],NOK[1],True]       # OK
     else:
@@ -128,7 +120,6 @@ def intraLTEHosr ():
     pass
 
 def SRVCC(NOK):
-    startTime = time.time()
 
     df = modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["Date","SRVCC_Succ(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
@@ -136,19 +127,16 @@ def SRVCC(NOK):
     peakSRVCC = data["SRVCC_Succ(#)"].max()
 
     if peakSRVCC > 0:
-        print("--- %s seconds <SRVCC> ---" % (time.time() - startTime))
         return [NOK[0],NOK[1],True]         # OK
     else:
         peakCalls = data["4G_QF_VoLTE_Initiated_Calls(#)"].max()
 
-        print("--- %s seconds <SRVCC> ---" % (time.time() - startTime))
         if peakCalls > 15:
             return [NOK[0],NOK[1],False]        # NOK
         else:
             return [NOK[0],NOK[1],True]         # OK
 
 def RSSI(NOK,tech):
-    startTime = time.time()
 
     match tech:
         case "3G":
@@ -168,7 +156,6 @@ def RSSI(NOK,tech):
             totalRssi.append(data.iloc[i][1])
     
     average = sum(totalRssi)/len(totalRssi)
-    print("--- %s seconds <RSSI> ---" % (time.time() - startTime))
     if average > -114:
         return [NOK[0],NOK[1],False]        # NOK
     else:

@@ -1,6 +1,5 @@
-from modules import analyzeKPI,graph,getNOKreport
+from modules import analyzeKPI,getNOKreport
 import pandas as pd
-import time
 
 
 def justification_consolidation(numCells,numTechs):
@@ -8,7 +7,6 @@ def justification_consolidation(numCells,numTechs):
     listNOK = getNOKreport.consolidation(numCells,numTechs)
     KPIoverview = set()
 
-    startTime = time.time()
     listNOKchecked = []
     for i in range(len(listNOK)):
         KPIoverview.add(listNOK[i][1])
@@ -59,7 +57,6 @@ def justification_consolidation(numCells,numTechs):
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
             case '4G Interference PUSCH (dBm)':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
-                graph.create_graph(listNOK[i],"4G_QF_UL_PUSCH_Interference(dBm)")
             case '2G Cell Availability (%)':
                 listNOKchecked.append(analyzeKPI.availability(listNOK[i],"2G"))
             case '3G Cell Availability (%)':
@@ -85,13 +82,8 @@ def justification_consolidation(numCells,numTechs):
             case '4G SRVCC HO Att':
                 listNOKchecked.append(analyzeKPI.SRVCC(listNOK[i]))
                 pass
-    print("--- %s seconds <justification_consolidation> ---" % (time.time() - startTime))
     return KPIoverview, listNOKchecked
           
-a,b = justification_consolidation(3,4)
-
-print(f"overview: {a}")
-print(f"detail: {b}")
 
 def justification_expansion(numCells,numTechs):
     

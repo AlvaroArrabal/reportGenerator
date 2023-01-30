@@ -2,7 +2,7 @@ import pandas as pd
 import os
 currentPath = os.getcwd()
 import warnings
-import time
+
 
 
 def expansion(numCells,numTechs):
@@ -26,7 +26,6 @@ def expansion(numCells,numTechs):
     return NOKList
 
 def consolidation(numCells,numTechs):
-    startTime = time.time()
     pathNOK = currentPath + "\\Data\\Babysitting.xlsx"
     
     df = pd.read_excel(pathNOK, engine="openpyxl")
@@ -47,5 +46,4 @@ def consolidation(numCells,numTechs):
             if columnsList[i].iloc[j][columns[i][3]] == "NOK": 
                 #NOKList.append([columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 1"],columnsList[i].iloc[j][1]])
                 NOKList.append([columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 1"]])
-    print("--- %s seconds <getNOK_consolidation> ---" % (time.time() - startTime))
     return NOKList
