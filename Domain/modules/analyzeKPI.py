@@ -11,6 +11,9 @@ def CDR():
 def CSSR():
     pass
 
+def calls_ending_3g2g():
+    pass
+
 def iniciated_calls(NOK,tech):
 
     match tech:
@@ -81,11 +84,26 @@ def availability(NOK,tech):
         return [NOK[0],NOK[1],True]       # OK
     
 
-def MIMO_rank2():
-    pass
+def MIMO_rank2(NOK):
 
-def MIMO_rank4():
-    pass
+    df = modules.getQueryData.get4G(NOK[0])
+    data = df.loc[:,["4G_QF_MIMO_RANK2(%)"]]
+    average = data["4G_QF_MIMO_RANK2(%)"].mean()
+
+    if average < 10:
+        return [NOK[0],NOK[1],False]       # NOK
+    else:
+        return [NOK[0],NOK[1],True]       # OK
+
+def MIMO_rank4(NOK):
+    df = modules.getQueryData.get4G(NOK[0])
+    data = df.loc[:,["4G_QF_MIMO_RANK4(%)"]]
+    average = data["4G_QF_MIMO_RANK4(%)"].mean()
+
+    if average < 10:
+        return [NOK[0],NOK[1],False]       # NOK
+    else:
+        return [NOK[0],NOK[1],True]       # OK
 
 def CSFB(NOK):
 

@@ -49,7 +49,7 @@ equivalent = {"2G CDR CS (%)":"2G_QF_DCR_Voice(%)",
 
 def create_graph(graphList):
     pos = 1
-    fig = plt.figure(figsize=(40,8))
+    fig = plt.figure(figsize=(12,6))
     for i in graphList:
         if "2G" in i[1]:
             df = getQueryData.get2G(i[0])

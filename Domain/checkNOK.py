@@ -64,9 +64,9 @@ def justification_consolidation(numCells,numTechs):
             case '4G Cell Availability (%)':
                 listNOKchecked.append(analyzeKPI.availability(listNOK[i],"4G"))
             case '4G MIMO (Rank2) (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.MIMO_rank2(listNOK[i]))
             case '4G MIMO (Rank4) (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.MIMO_rank4(listNOK[i]))
             case '4G CSFB E2W':
                 listNOKchecked.append(analyzeKPI.CSFB(listNOK[i]))
             case '4G CA in PCELL':
@@ -81,7 +81,7 @@ def justification_consolidation(numCells,numTechs):
                 pass
             case '4G SRVCC HO Att':
                 listNOKchecked.append(analyzeKPI.SRVCC(listNOK[i]))
-                pass
+                
     return KPIoverview, listNOKchecked
           
 
@@ -100,9 +100,3 @@ def justification_expansion(numCells,numTechs):
             case 'Interference 4G PUSCH UL (RSSI UL 4G)':
                 print("PUSCH")
 
-
-
-
-
-def word():
-    pass
