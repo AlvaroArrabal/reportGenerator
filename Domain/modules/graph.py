@@ -49,7 +49,7 @@ equivalent = {"2G CDR CS (%)":"2G_QF_DCR_Voice(%)",
 
 def create_graph(graphList):
     pos = 1
-    fig = plt.figure(figsize=(12,10*len(graphList)))
+    fig = plt.figure(figsize=(10,6*len(graphList)),dpi=200)
     for i in graphList:
         if "2G" in i[1]:
             df = getQueryData.get2G(i[0])
@@ -67,12 +67,39 @@ def create_graph(graphList):
         pos += 1
         fig.autofmt_xdate(rotation=90)
         ax.set_xticks(data["Date"])
-        xfmt = mdates.DateFormatter('%d/%m/%Y %H:%M:%S')
+        xfmt = mdates.DateFormatter('%d/%m %H:%M:%S')
         ax.xaxis.set_major_formatter(xfmt)
         ax.grid()
         ax.set_title(i[0])
         ax.set_ylabel(i[1])
         ax.set_xlabel("Date")
+
+    graphname = ".\\graphs\\" +  i[1] + ".png"
+
+    fig.savefig(graphname,dpi= 300)
+
+def create_graph_2(graphList):
+    pos = 1
+    fig = plt.figure(figsize=(12,10))
+    ax = plt.subplot()
+    plt.grid()
+    for i in graphList:
+        if "2G" in i[1]:
+            df = getQueryData.get2G(i[0])
+        elif "3G" in i[1]:
+            df = getQueryData.get3G(i[0])
+        elif "4G" in i[1]:
+            df = getQueryData.get4G(i[0])
+    
+        data = df.loc[:,["Date",equivalent[i[1]]]]
+        data["Date"] = pd.to_datetime(data["Date"])
+
+        ax = plt.plot(data["Date"], data[equivalent[i[1]]])
+        
+    ax.fmt_xdata = mdates.DateFormatter('%d/%m/%Y %H:%M:%S')
+    ax.set_title('Date')
+    fig.autofmt_xdate()
+    plt.xticks(rotation=90)
 
     graphname = ".\\graphs\\" +  i[1] + ".png"
 
