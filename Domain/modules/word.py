@@ -53,7 +53,7 @@ def justification(cellList):
     
     if len(cellsNOK) > 0:
         cells = ', '.join(cellsNOK)
-        status= 'NOK. ' + dic[i[1]][1] + cells + '. Ha quedado escalado al adjudicatario.\n'
+        status= 'NOK. ' + dic[i[1]][1] + cells + '. Ha quedado escalado al adjudicatario.'
     else:
         status = 'OK. ' + dic[i[1]][0] + '\n'
     text += status

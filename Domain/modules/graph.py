@@ -49,7 +49,7 @@ equivalent = {"2G CDR CS (%)":"2G_QF_DCR_Voice(%)",
 
 def create_graph(graphList):
     pos = 1
-    fig = plt.figure(figsize=(12,6))
+    fig = plt.figure(figsize=(12,10*len(graphList)))
     for i in graphList:
         if "2G" in i[1]:
             df = getQueryData.get2G(i[0])
@@ -61,7 +61,7 @@ def create_graph(graphList):
         data = df.loc[:,["Date",equivalent[i[1]]]]
         data["Date"] = pd.to_datetime(data["Date"])
 
-        ax = plt.subplot(1,len(graphList),pos)
+        ax = plt.subplot(len(graphList),1,pos)
 
         ax.plot(data["Date"], data[equivalent[i[1]]])
         pos += 1

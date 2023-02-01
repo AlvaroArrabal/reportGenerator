@@ -1,5 +1,5 @@
 import checkNOK
-from modules import graph
+from modules import graph,word
 import time
 
 
@@ -8,7 +8,7 @@ numTechs = 4
 
 startTime = time.time()
 KPIoverview, listNOKchecked = checkNOK.justification_consolidation(numCells,numTechs)
-print("--- %s seconds <total> ---" % (time.time() - startTime))
+print("--- %s seconds <check NOK> ---" % (time.time() - startTime))
 
 startTime = time.time()
 for i in KPIoverview:
@@ -19,4 +19,6 @@ for i in KPIoverview:
     graph.create_graph(graphList)
 print("--- %s seconds <graphs> ---" % (time.time() - startTime))  
         
-    
+startTime = time.time()
+word.create(KPIoverview, listNOKchecked)
+print("--- %s seconds <word> ---" % (time.time() - startTime))  
