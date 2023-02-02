@@ -43,8 +43,7 @@ dic = { "2G CDR CS (%)":['',''],
 
 
 def justification(cellList):
-    text = ''
-    text += cellList[0][1] + ': '
+    text = ': '
 
     cellsNOK = []
     for i in cellList:
@@ -55,7 +54,7 @@ def justification(cellList):
         cells = ', '.join(cellsNOK)
         status= 'NOK. ' + dic[i[1]][1] + cells + '. Ha quedado escalado al adjudicatario.'
     else:
-        status = 'OK. ' + dic[i[1]][0] + '\n'
+        status = 'OK. ' + dic[i[1]][0] + '.'
     text += status
 
     return text       
@@ -70,8 +69,13 @@ def create(listNOK,listNOKchecked):
             if i == j[1]:
                 cellList.append(j)
         total += justification(cellList)
-        word.add_paragraph(total)
-        word.add_picture(f'.\\graphs\\{i}.png',width=Cm(20))
+        p = word.add_paragraph()
+        p.add_run(i).bold = True
+        p.add_run(total)
+
+        for k in range(len(cellList)):
+            word.add_picture(f'.\\graphs\\{i}_{k+1}.png',width=Cm(20))
+
     
     word.save("babysitting.docx")
         

@@ -19,7 +19,8 @@ for i in KPIoverview:
             graphList.append([j[0],j[1]])
     graph.create_graph(graphList)
 print("--- %s seconds <graphs> ---" % (time.time() - startTime))  
-        
+
+
 startTime = time.time()
 word.create(KPIoverview, listNOKchecked)
 print("--- %s seconds <word> ---" % (time.time() - startTime))  
