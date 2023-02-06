@@ -11,8 +11,19 @@ def CDR():
 def CSSR():
     pass
 
-def calls_ending_3g2g():
-    pass
+def calls_ending_3g2g(NOK):
+    df = modules.getQueryData.get3G(NOK[0])
+    data = df.loc[:,["3G_QF_Calls ending in 2G(%)"]]
+
+    cont = 0
+
+    for i in range(len(data)):
+        if data.iloc[i][0] > 10:
+            cont += 1
+    if cont > 0:
+        return [NOK[0],NOK[1],"NOK"]     # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]      # OK
 
 def iniciated_calls(NOK,tech):
 
@@ -32,9 +43,9 @@ def iniciated_calls(NOK,tech):
     
 
     if total > 0:
-        return [NOK[0],NOK[1],True]       # OK
+        return [NOK[0],NOK[1],"OK"]       # OK
     else:
-        return [NOK[0],NOK[1],False]      # NOK
+        return [NOK[0],NOK[1],"NOK"]      # NOK
 
 def throughput():
     pass
@@ -53,9 +64,9 @@ def interference(NOK):
     
     average = sum(totalRssi)/len(totalRssi)
     if average > 2:
-        return [NOK[0],NOK[1],False]        # NOK
+        return [NOK[0],NOK[1],"NOK"]        # NOK
     else:
-        return [NOK[0],NOK[1],True]         # OK
+        return [NOK[0],NOK[1],"OK"]         # OK
     
 
 def availability(NOK,tech):
@@ -79,9 +90,9 @@ def availability(NOK,tech):
             average = data["5G_QF Cell Availability(%)"].mean()
     
     if average < 95:
-        return [NOK[0],NOK[1],False]       # NOK
+        return [NOK[0],NOK[1],"NOK"]       # NOK
     else:
-        return [NOK[0],NOK[1],True]       # OK
+        return [NOK[0],NOK[1],"OK"]       # OK
     
 
 def MIMO_rank2(NOK):
@@ -91,9 +102,9 @@ def MIMO_rank2(NOK):
     average = data["4G_QF_MIMO_RANK2(%)"].mean()
 
     if average < 10:
-        return [NOK[0],NOK[1],False]       # NOK
+        return [NOK[0],NOK[1],"NOK"]       # NOK
     else:
-        return [NOK[0],NOK[1],True]       # OK
+        return [NOK[0],NOK[1],"OK"]       # OK
 
 def MIMO_rank4(NOK):
     df = modules.getQueryData.get4G(NOK[0])
@@ -101,9 +112,9 @@ def MIMO_rank4(NOK):
     average = data["4G_QF_MIMO_RANK4(%)"].mean()
 
     if average < 10:
-        return [NOK[0],NOK[1],False]       # NOK
+        return [NOK[0],NOK[1],"NOK"]       # NOK
     else:
-        return [NOK[0],NOK[1],True]       # OK
+        return [NOK[0],NOK[1],"OK"]       # OK
 
 def CSFB(NOK):
 
@@ -112,9 +123,9 @@ def CSFB(NOK):
     total = data["4G_QF_CSFB_E2W_Attempts(#)"].sum()
     
     if total > 0:
-        return [NOK[0],NOK[1],True]       # OK
+        return [NOK[0],NOK[1],"OK"]       # OK
     else:
-        return [NOK[0],NOK[1],False]      # NOK
+        return [NOK[0],NOK[1],"NOK"]      # NOK
 
 def CA(NOK,num):
 
@@ -129,9 +140,9 @@ def CA(NOK,num):
             total = data["4G_QF_CA_Secondary_Cell(%)"].sum()
     
     if total > 0:
-        return [NOK[0],NOK[1],True]       # OK
+        return [NOK[0],NOK[1],"OK"]       # OK
     else:
-        return [NOK[0],NOK[1],False]      # NOK
+        return [NOK[0],NOK[1],"NOK"]      # NOK
 
 
 def intraLTEHosr ():
@@ -145,14 +156,14 @@ def SRVCC(NOK):
     peakSRVCC = data["SRVCC_Succ(#)"].max()
 
     if peakSRVCC > 0:
-        return [NOK[0],NOK[1],True]         # OK
+        return [NOK[0],NOK[1],"OK"]         # OK
     else:
         peakCalls = data["4G_QF_VoLTE_Initiated_Calls(#)"].max()
 
         if peakCalls > 15:
-            return [NOK[0],NOK[1],False]        # NOK
+            return [NOK[0],NOK[1],"NOK"]        # NOK
         else:
-            return [NOK[0],NOK[1],True]         # OK
+            return [NOK[0],NOK[1],"4G_QF_VoLTE_Initiated_Calls(#)"]         # OK
 
 def RSSI(NOK,tech):
 
@@ -160,23 +171,27 @@ def RSSI(NOK,tech):
         case "3G":
             df = modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["Date","3G_QF_RSSI_UL(dBm)"]]
+            target = -100
         case "4G":
             df = modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
+            target = -114
         case "5G":
             df = modules.getQueryData.get5G(NOK[0])
             data = df.loc[:,["Date","5G_QF RSSI(dBm)"]]
+            target = -114
     
     totalRssi = []
     for i in range(len(data)):
         hour = data.iloc[i][0][-5:]
+        
         if hour in offPeakHours:
             totalRssi.append(data.iloc[i][1])
-    
+
     average = sum(totalRssi)/len(totalRssi)
-    if average > -114:
-        return [NOK[0],NOK[1],False]        # NOK
+    if average > target:
+        return [NOK[0],NOK[1],"NOK"]        # NOK
     else:
-        return [NOK[0],NOK[1],True]         # OK
+        return [NOK[0],NOK[1],"OK"]         # OK
 
 

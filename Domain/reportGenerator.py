@@ -10,13 +10,15 @@ startTime = time.time()
 KPIoverview, listNOKchecked = checkNOK.justification_consolidation(numCells,numTechs)
 print("--- %s seconds <check NOK> ---" % (time.time() - startTime))
 
+print(KPIoverview)
+print(listNOKchecked)
 
 startTime = time.time()
 for i in KPIoverview:
     graphList = []
     for j in listNOKchecked:
         if i == j[1]:
-            graphList.append([j[0],j[1]])
+            graphList.append(j)
     graph.create_graph(graphList)
 print("--- %s seconds <graphs> ---" % (time.time() - startTime))  
 

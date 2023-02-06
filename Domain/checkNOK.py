@@ -76,7 +76,7 @@ def justification_consolidation(numCells,numTechs):
             case '2G Speech disconnections':
                 pass
             case '3G Calls ending in 2G (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.calls_ending_3g2g(listNOK[i]))
             case '4G IntraLTE HOSR (including preparation) (%)':
                 pass
             case '4G SRVCC HO Att':
