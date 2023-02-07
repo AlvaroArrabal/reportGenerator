@@ -1,4 +1,4 @@
-from modules import analyzeKPI,getNOKreport
+from Domain.modules import analyzeKPI,getNOKreport
 import pandas as pd
 
 

@@ -1,5 +1,5 @@
 import pandas as pd
-import modules.getQueryData
+import Domain.modules.getQueryData
 
 
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
@@ -12,7 +12,7 @@ def CSSR():
     pass
 
 def calls_ending_3g2g(NOK):
-    df = modules.getQueryData.get3G(NOK[0])
+    df = Domain.modules.getQueryData.get3G(NOK[0])
     data = df.loc[:,["3G_QF_Calls ending in 2G(%)"]]
 
     cont = 0
@@ -29,15 +29,15 @@ def iniciated_calls(NOK,tech):
 
     match tech:
         case "2G":
-            df = modules.getQueryData.get2G(NOK[0])
+            df = Domain.modules.getQueryData.get2G(NOK[0])
             data = df.loc[:,["2G_QF_Established_Calls(#)"]]
             total = data["2G_QF_Established_Calls(#)"].sum()
         case "3G":
-            df = modules.getQueryData.get3G(NOK[0])
+            df = Domain.modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["3G_QF_Initiated_Calls(#)"]]
             total = data["3G_QF_Initiated_Calls(#)"].sum()
         case "4G":
-            df = modules.getQueryData.get4G(NOK[0])
+            df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_VoLTE_Initiated_Calls(#)"]]
             total = data["4G_QF_VoLTE_Initiated_Calls(#)"].sum()
     
@@ -53,7 +53,7 @@ def throughput():
 def interference(NOK):
     # For ICM Band in 2G
 
-    df = modules.getQueryData.get2G(NOK[0])
+    df = Domain.modules.getQueryData.get2G(NOK[0])
     data = df.loc[:,["Date","2G_QF_ICMBand_(% Samples >3)(%)"]]
 
     totalRssi = []
@@ -72,20 +72,20 @@ def interference(NOK):
 def availability(NOK,tech):
     match tech:
         case "2G":
-            df = modules.getQueryData.get2G(NOK[0])
+            df = Domain.modules.getQueryData.get2G(NOK[0])
             data = df.loc[:,["2G_QF_Cell_Availability_Rate(%)"]]
             average = data["2G_QF_Cell_Availability_Rate(%)"].mean()
             
         case "3G":
-            df = modules.getQueryData.get3G(NOK[0])
+            df = Domain.modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["3G_QF_Cell_Availability_Hourly(%)"]]
             average = data["3G_QF_Cell_Availability_Hourly(%)"].mean()
         case "4G":
-            df = modules.getQueryData.get4G(NOK[0])
+            df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_Cell_Availability_Rate_Hourly(%)"]]
             average = data["4G_QF_Cell_Availability_Rate_Hourly(%)"].mean()
         case "5G":
-            df = modules.getQueryData.get5G(NOK[0])
+            df = Domain.modules.getQueryData.get5G(NOK[0])
             data = df.loc[:,["5G_QF Cell Availability(%)"]]
             average = data["5G_QF Cell Availability(%)"].mean()
     
@@ -97,7 +97,7 @@ def availability(NOK,tech):
 
 def MIMO_rank2(NOK):
 
-    df = modules.getQueryData.get4G(NOK[0])
+    df = Domain.modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["4G_QF_MIMO_RANK2(%)"]]
     average = data["4G_QF_MIMO_RANK2(%)"].mean()
 
@@ -107,7 +107,7 @@ def MIMO_rank2(NOK):
         return [NOK[0],NOK[1],"OK"]       # OK
 
 def MIMO_rank4(NOK):
-    df = modules.getQueryData.get4G(NOK[0])
+    df = Domain.modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["4G_QF_MIMO_RANK4(%)"]]
     average = data["4G_QF_MIMO_RANK4(%)"].mean()
 
@@ -118,7 +118,7 @@ def MIMO_rank4(NOK):
 
 def CSFB(NOK):
 
-    df = modules.getQueryData.get4G(NOK[0])
+    df = Domain.modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["4G_QF_CSFB_E2W_Attempts(#)"]]
     total = data["4G_QF_CSFB_E2W_Attempts(#)"].sum()
     
@@ -131,11 +131,11 @@ def CA(NOK,num):
 
     match num:
         case "primaryCell":
-            df = modules.getQueryData.get4G(NOK[0])
+            df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_CA_Primary_Cell(%)"]]
             total = data["4G_QF_CA_Primary_Cell(%)"].sum()
         case "secondaryCell":
-            df = modules.getQueryData.get4G(NOK[0])
+            df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_CA_Secondary_Cell(%)"]]
             total = data["4G_QF_CA_Secondary_Cell(%)"].sum()
     
@@ -150,7 +150,7 @@ def intraLTEHosr ():
 
 def SRVCC(NOK):
 
-    df = modules.getQueryData.get4G(NOK[0])
+    df = Domain.modules.getQueryData.get4G(NOK[0])
     data = df.loc[:,["Date","SRVCC_Succ(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
 
     peakSRVCC = data["SRVCC_Succ(#)"].max()
@@ -169,17 +169,17 @@ def RSSI(NOK,tech):
 
     match tech:
         case "3G":
-            df = modules.getQueryData.get3G(NOK[0])
+            df = Domain.modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["Date","3G_QF_RSSI_UL(dBm)"]]
             target = -100
         case "4G":
-            df = modules.getQueryData.get4G(NOK[0])
+            df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
-            target = -114
+            target = -113
         case "5G":
-            df = modules.getQueryData.get5G(NOK[0])
+            df = Domain.modules.getQueryData.get5G(NOK[0])
             data = df.loc[:,["Date","5G_QF RSSI(dBm)"]]
-            target = -114
+            target = -113
     
     totalRssi = []
     for i in range(len(data)):

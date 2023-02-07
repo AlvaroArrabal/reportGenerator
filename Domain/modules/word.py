@@ -1,5 +1,6 @@
 from docx import Document
 from docx.shared import Cm
+import time
 # 'KPI':['OK','NOK']
 
 dic = { "2G CDR CS (%)":['',''],
@@ -68,9 +69,17 @@ def justification(cellList):
 
     return text       
     
-def create(listNOK,listNOKchecked):
+def create(listNOK,listNOKchecked,site):
     
     word = Document()
+    
+    now = time.strftime("%X")
+    
+    if now < str(12):
+        word.add_paragraph(f"Buenos días,\nSe adjunta informe Babysitting 48 del site {site}. A continuación, se justifican sus KPI NOK.\n")
+    else:
+        word.add_paragraph(f"Buenas tardes,\nSe adjunta informe Babysitting 48 del site {site}. A continuación, se justifican sus KPI NOK.\n")
+
     for i in listNOK:
         total = ''
         cellList = []

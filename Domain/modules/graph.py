@@ -5,12 +5,13 @@ import numpy as np
 import datetime
 import matplotlib.dates as mdates
 import matplotlib.cbook as cbook
-from modules import getQueryData
+from Domain.modules import getQueryData
 
 # config: 
-# 0 -> line graph
+# 0 -> line graph without limits
 # 1 -> bar graph
 # 2 -> fill graph
+# 3 -> line graph with limits
 
 equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
                 "2G CSSR CS (%)":["2G_QF_CSSR_Voice(%)",0],
@@ -18,7 +19,7 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
                 "2G Iniciated calls":["2G_QF_Initiated_Calls(#)",1],
                 "2G DL Data traffic (KB)":["2G_QF_DL_Data_Traffic(KB)",0],
                 "2G UL Data traffic (KB)":["2G_QF_UL_Data_Traffic(KB)",0],
-                "2G ICMBand () ":["2G_QF_ICMBand_(% Samples >3)(%)",0],
+                "2G ICMBand () ":["2G_QF_ICMBand_(% Samples >3)(%)",3],
                 "2G Cell Availability (%)":["2G_QF_Cell_Availability_Rate(%)",2],
                 "2G Speech disconnections":["CELL.SPEECH.DISC.TIMES.NO.CIRCUIT.CHAN(Times)",0],
                 "3G CDR CS (%)":["3G_QF_DCR_Voice(%)",0],
@@ -29,7 +30,7 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
                 "3G UL Data traffic (KB)":["3G_QF_UL_Data_Traffic(KB)",0],
                 "3G RTWP (dBm)":["3G_QF_RSSI_UL(dBm)",0],
                 "3G Cell Availability (%)":["3G_QF_Cell_Availability_Hourly(%)",2],
-                "3G Calls ending in 2G (%)":["3G_QF_Calls ending in 2G(%)",0],
+                "3G Calls ending in 2G (%)":["3G_QF_Calls ending in 2G(%)",3],
                 "TH DL (2G3G4G)":["User Throughput (Kbps)(kbit/s)",0],
                 "TH UL (2G3G4G)":["3G_QF_User_HSUPA_Throughput(Kbps)",0],
                 "4G CDR (VoLTE) (%)":["4G_QF_VoLTE_DCR(%)",0],
@@ -75,14 +76,23 @@ def create_graph(graphList):
             data["Date"] = pd.to_datetime(data["Date"])
 
             ax = plt.subplot()
+
+            # Type of graph
             if equivalent[i[1]][1] == 0:
                 ax.plot(data["Date"], data[equivalent[i[1]][0]])
-                ax.grid()
+
             elif equivalent[i[1]][1] == 1:
                 ax.bar(data["Date"], data[equivalent[i[1]][0]],color='orange',width=0.03)
+
             elif equivalent[i[1]][1] == 2:
-                ax.fill_between(data["Date"], data[equivalent[i[1]][0]])
-                plt.ylim(0,100)
+                ax.fill_between(data["Date"], data[equivalent[i[1]][0]],color='cornflowerblue',edgecolor='black')
+                plt.ylim(0,110)
+
+            elif equivalent[i[1]][1] == 3:
+                ax.plot(data["Date"], data[equivalent[i[1]][0]])
+                plt.ylim(0,110)
+
+            ax.grid(axis='y',linewidth=0.5)
             fig.autofmt_xdate(rotation=90)
             ax.set_xticks(data["Date"])
             xfmt = mdates.DateFormatter('%d/%m %H:%M:%S')
@@ -91,7 +101,7 @@ def create_graph(graphList):
             ax.set_title(i[0])
             ax.set_ylabel(i[1])
 
-            graphname = ".\\graphs\\" +  i[1] + "_" + str(pos) + ".png"
+            graphname = ".\\Graphs\\" +  i[1] + "_" + str(pos) + ".png"
             pos += 1
             fig.savefig(graphname,dpi= 300)
         else:
