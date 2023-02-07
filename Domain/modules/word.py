@@ -94,12 +94,6 @@ def create(listNOK,listNOKchecked,site):
         for k in range(len(cellList)):
             word.add_picture(f'.\\graphs\\{i}_{k+1}.png',width=Cm(20))
 
-    
-    word.save("babysitting.docx")
-        
-
-listNOK = {'4G SRVCC HO Att', '4G Cell Availability (%)', '2G ICMBand () ', '4G Iniciated calls (VoLTE)', '4G Interference PUSCH (dBm)', '2G Iniciated calls', '3G Iniciated calls', '2G Cell Availability (%)', '3G Cell Availability (%)'}
-
-listNOKchecked = [['CLMX7711M3A', '4G Interference PUSCH (dBm)', 'NOK'], ['CLMX7711M3A', '4G Cell Availability (%)', 'OK'], ['CLMX7711M2A', '4G Iniciated calls (VoLTE)', 'OK'], ['CLMX7711M2A', '4G Interference PUSCH (dBm)', 'OK'], ['CLMX7711M1A', '4G Interference PUSCH (dBm)', 'OK'], ['CLMX7711M1A', '4G Cell Availability (%)', 'OK'], ['CLMX7711N2A', '4G Interference PUSCH (dBm)', 'OK'], ['CLMX7711N1A', '4G SRVCC HO Att', '4G_QF_VoLTE_Initiated_Calls(#)'], ['X7711F3', '3G Cell Availability (%)', 'OK'], ['X7711F1', '3G Iniciated calls', 'OK'], ['X7711F1', '3G Cell Availability (%)', 'OK'], ['X7711E3', '2G ICMBand () ', 'OK'], ['X7711E3', '2G Cell Availability (%)', 'OK'], ['X7711E2', '2G Iniciated calls', 'OK'], ['X7711E2', '2G Cell Availability (%)', 'OK'], ['X7711E1', '2G Cell Availability (%)', 'NOK']] 
-
-#create(listNOK,listNOKchecked)
+    name = 'Babysitting_' + site + '.docx'
+    word.save(name)
+   

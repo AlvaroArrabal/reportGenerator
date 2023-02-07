@@ -3,7 +3,7 @@ from Domain.modules import graph,word
 import time
 
 
-def generate(numCells,numTechs,site):
+def generate_consolidation_report(numCells,numTechs,site):
     startTime = time.time()
     KPIoverview, listNOKchecked = checkNOK.justification_consolidation(numCells,numTechs)
     print("--- %s seconds <check NOK> ---" % (time.time() - startTime))
@@ -18,12 +18,12 @@ def generate(numCells,numTechs,site):
             if i == j[1]:
                 graphList.append(j)
         graph.create_graph(graphList)
-    print("--- %s seconds <graphs> ---" % (time.time() - startTime))  
+    print("--- %s seconds <graphs> ---" % (time.time() - startTime))
 
     
     startTime = time.time()
     word.create(KPIoverview, listNOKchecked,site)
-    print("--- %s seconds <word> ---" % (time.time() - startTime))  
+    print("--- %s seconds <word> ---" % (time.time() - startTime))
 
 
 
