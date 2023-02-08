@@ -21,7 +21,9 @@ def get2G(site):
 def get3G(site):
     
     path3g = currentPath + "\\Data\\3g.xlsx"
-    df = pd.read_excel(path3g,engine="openpyxl")
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        df = pd.read_excel(path3g, engine="openpyxl")
 
     data =  df.groupby("Cell Name")
     
