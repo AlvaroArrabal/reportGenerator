@@ -3,11 +3,13 @@ from Domain.modules import graph,word
 import time
 
 
+
 def generate_consolidation_report(numCells,numTechs,site):
+    print("1")
     startTime = time.time()
     KPIoverview, listNOKchecked = checkNOK.justification_consolidation(numCells,numTechs)
     print("--- %s seconds <check NOK> ---" % (time.time() - startTime))
-
+    print("1")
     #print(KPIoverview)
     #print(listNOKchecked)
 
@@ -24,6 +26,5 @@ def generate_consolidation_report(numCells,numTechs,site):
     startTime = time.time()
     word.create(KPIoverview, listNOKchecked,site)
     print("--- %s seconds <word> ---" % (time.time() - startTime))
-
 
 

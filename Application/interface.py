@@ -5,12 +5,13 @@ from tkinter import messagebox
 
 def create(reportType,cells,techs,siteName):
     if reportType == 'Consolidación':
-        try:
+        generate_consolidation_report(cells,techs,siteName)
+        '''try:
             messagebox.showinfo('Información','No cierre el programa hasta que termine\nPresione aceptar')
             generate_consolidation_report(cells,techs,siteName)
             messagebox.showinfo('Información','Terminado!')
         except:
-            messagebox.showinfo('Información','Algo ha ido mal')
+            messagebox.showinfo('Información','Algo ha ido mal')'''
         
     elif reportType == 'Ampliación':
         messagebox.showinfo('Información','Este módulo no está desarrollado en esta versión')

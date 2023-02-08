@@ -176,6 +176,7 @@ def RSSI(NOK,tech):
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
             target = -113
+            print(target)
         case "5G":
             df = Domain.modules.getQueryData.get5G(NOK[0])
             data = df.loc[:,["Date","5G_QF RSSI(dBm)"]]
