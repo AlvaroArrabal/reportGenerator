@@ -18,8 +18,10 @@ def calls_ending_3g2g(NOK):
     cont = 0
 
     for i in range(len(data)):
-        if data.iloc[i][0] > 10:
-            cont += 1
+        if data.iloc[i][0] != '-' and data.iloc[i][0] != '/0':
+            if data.iloc[i][0] > 10:
+                cont += 1
+
     if cont > 0:
         return [NOK[0],NOK[1],"NOK"]     # NOK
     else:
@@ -47,8 +49,26 @@ def iniciated_calls(NOK,tech):
     else:
         return [NOK[0],NOK[1],"NOK"]      # NOK
 
-def throughput():
-    pass
+def throughput(NOK,tech):
+    match tech:
+        case "2G":
+            pass
+        case "3G":
+            pass
+        case "4G":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_Throughput_UL(Mbps)"]]
+             
+    cont =0
+    for i in range(len(data)):
+        if type(data.iloc[i][0]) != str and data.iloc[i][0] >= 0.5:
+            cont += 1
+        
+    if cont < 5:
+        return [NOK[0],NOK[1],"NOK"]        # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]         # OK
+    
 
 def interference(NOK):
     # For ICM Band in 2G
@@ -176,7 +196,6 @@ def RSSI(NOK,tech):
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["Date","4G_QF_UL_PUSCH_Interference(dBm)"]]
             target = -113
-            print(target)
         case "5G":
             df = Domain.modules.getQueryData.get5G(NOK[0])
             data = df.loc[:,["Date","5G_QF RSSI(dBm)"]]
@@ -184,9 +203,10 @@ def RSSI(NOK,tech):
     
     totalRssi = []
     for i in range(len(data)):
+        
         hour = data.iloc[i][0][-5:]
         
-        if hour in offPeakHours:
+        if hour in offPeakHours and type(data.iloc[i][1]) != str:
             totalRssi.append(data.iloc[i][1])
 
     average = sum(totalRssi)/len(totalRssi)
