@@ -5,11 +5,9 @@ import time
 
 
 def generate_consolidation_report(numCells,numTechs,site):
-    print("1")
     startTime = time.time()
     KPIoverview, listNOKchecked = checkNOK.justification_consolidation(numCells,numTechs)
     print("--- %s seconds <check NOK> ---" % (time.time() - startTime))
-    print("1")
     #print(KPIoverview)
     #print(listNOKchecked)
 

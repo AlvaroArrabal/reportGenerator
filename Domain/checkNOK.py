@@ -10,7 +10,6 @@ def justification_consolidation(numCells,numTechs):
     listNOKchecked = []
     for i in range(len(listNOK)):
         KPIoverview.add(listNOK[i][1])
-        print(listNOK[i][1],listNOKchecked)
         match listNOK[i][1]:
             case '2G CDR CS (%)':
                 # 3º NOK_i = analyzeKPI
@@ -48,16 +47,13 @@ def justification_consolidation(numCells,numTechs):
             case 'Tput DL 4G >2Mbps':
                 pass
             case 'Tput UL 4G >500kbps':
-                pass
-            case 'Tput UL 4G >500kbps':
-                pass
+                listNOKchecked.append(analyzeKPI.throughput(listNOK[i],"4G"))
             case '2G ICMBand () ':
                 listNOKchecked.append(analyzeKPI.interference(listNOK[i]))
             case '3G RTWP (dBm)':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
             case '4G Interference PUSCH (dBm)':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
-                print('out')
             case '2G Cell Availability (%)':
                 listNOKchecked.append(analyzeKPI.availability(listNOK[i],"2G"))
             case '3G Cell Availability (%)':

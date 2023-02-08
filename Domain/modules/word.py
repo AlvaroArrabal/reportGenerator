@@ -6,19 +6,19 @@ import time
 dic = { "2G CDR CS (%)":['',''],
         "2G CSSR CS (%)":['',''],
         "2G CSSR PS (%)":['',''],
-        "2G Iniciated calls":['Hay llamadas iniciadas','No hay llamadas iniciadas'],
+        "2G Iniciated calls":['Hay llamadas iniciadas','No hay llamadas iniciadas en '],
         "2G DL Data traffic (KB)":['',''],
         "2G UL Data traffic (KB)":['',''],
-        "2G ICMBand () ":['Se cumple el target en horas valle','Valores elevados en horas valle'],
+        "2G ICMBand () ":['Se cumple el target en horas valle','Valores elevados en horas valle en'],
         "2G Cell Availability (%)":['Valores correctos de availability','Problemas de availability en '],
         "2G Speech disconnections":['',''],
         "3G CDR CS (%)":['',''],
         "3G CSSR CS (%)":['',''],
         "3G CSSR PS (%)":['',''],
-        "3G Iniciated calls":['Hay llamadas iniciadas','No hay llamadas iniciadas en'],
+        "3G Iniciated calls":['Hay llamadas iniciadas','No hay llamadas iniciadas en '],
         "3G DL Data traffic (KB)":['',''],
         "3G UL Data traffic (KB)":['',''],
-        "3G RTWP (dBm)":['Se cumple el target en horas valle','Valores elevados en horas valle en'],
+        "3G RTWP (dBm)":['Se cumple el target en horas valle','Valores elevados en horas valle en '],
         "3G Cell Availability (%)":['Valores correctos de availability','Problemas de availability en '],
         "3G Calls ending in 2G (%)":['Valores por debajo del umbral del 10%','Valores elevados de 3G calls ending in 2G en '],
         "TH DL (2G3G4G)":['',''],
@@ -27,20 +27,20 @@ dic = { "2G CDR CS (%)":['',''],
         "4G_DCR_DATA":['',''],
         "4G CSSR (VoLTE) (%)":['',''],
         "4G CSSR PS (%)":['',''],
-        "4G Iniciated calls (VoLTE)":['Hay llamadas iniciadas','No hay llamadas iniciadas '],
+        "4G Iniciated calls (VoLTE)":['Hay llamadas iniciadas','No hay llamadas iniciadas en '],
         "4G DL Data traffic (MB)":['',''],
         "4G UL Data traffic (MB)":['',''],
         "4G Interference PUSCH (dBm)":['Se cumple el target en horas valle','Valores elevados en horas valle en '],
-        "4G Cell Availability (%)":['Valores correctos de availability','Problemas de availability'],
+        "4G Cell Availability (%)":['Valores correctos de availability','Problemas de availability en '],
         "4G MIMO (Rank2) ()":['',''],
-        "4G MIMO (Rank4) ()":['Valores correctos de MIMO Rank4','No hay valores de MIMO Rank4'],
+        "4G MIMO (Rank4) ()":['Valores correctos de MIMO Rank4','No hay valores de MIMO Rank4 en '],
         "4G CSFB E2W":['',''],
         "4G CA in PCELL":['',''],
         "4G CA in SCELL":['',''],
         "4G IntraLTE HOSR (including preparation) ()":['',''],
-        "4G SRVCC HO Att":['Hay intentos de SRVCC en','Sin intentos de SRVCC en','Teniendo en cuenta la cantidad de llamadas iniciadas, se considera que el comportamiento es el esperado'],
+        "4G SRVCC HO Att":['Hay intentos de SRVCC en','Sin intentos de SRVCC en ','Teniendo en cuenta la cantidad de llamadas iniciadas, se considera que el comportamiento es el esperado'],
         "Tput DL 4G >2Mbps":['',''],
-        "Tput UL 4G >500kbps":['','']}
+        "Tput UL 4G >500kbps":['Valores entorno al target objetivo de TH (0.5 Mbps)','Valores bajos de TH en ']}
 
 
 def justification(cellList):
@@ -92,7 +92,11 @@ def create(listNOK,listNOKchecked,site):
         p.add_run(total)
 
         for k in range(len(cellList)):
-            word.add_picture(f'.\\graphs\\{i}_{k+1}.png',width=Cm(20))
+            if i.find('>') == -1:
+                word.add_picture(f'.\\graphs\\{i}_{k+1}.png',width=Cm(20))
+            else:
+                element = i.replace('>','')
+                word.add_picture(f'.\\graphs\\{element}_{k+1}.png',width=Cm(20))
 
     name = 'Babysitting_' + site + '.docx'
     word.save(name)
