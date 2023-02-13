@@ -13,13 +13,13 @@ def justification_consolidation(numCells,numTechs):
         match listNOK[i][1]:
             case '2G CDR CS (%)':
                 # 3º NOK_i = analyzeKPI
-                pass
+                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"2G"))
             case '3G CDR CS (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"3G"))
             case '4G CDR CS (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Voice"))
             case '4G_DCR_DATA ':
-                pass
+                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Packect"))
             case '2G CSSR CS (%)':
                 pass
             case '3G CSSR CS (%)':

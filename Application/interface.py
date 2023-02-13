@@ -5,13 +5,15 @@ from tkinter import messagebox
 
 def create(reportType,cells,techs,siteName):
     if reportType == 'Consolidación':
-        generate_consolidation_report(cells,techs,siteName)
-        '''try:
-            messagebox.showinfo('Información','No cierre el programa hasta que termine\nPresione aceptar')
-            generate_consolidation_report(cells,techs,siteName)
-            messagebox.showinfo('Información','Terminado!')
-        except:
-            messagebox.showinfo('Información','Algo ha ido mal')'''
+        if cells == 0 or techs == 0:
+            messagebox.showerror('Error','número de celdas o tecnologías vacia')
+        else:
+            try:
+                messagebox.showinfo('Información',"No cierre el programa hasta que termine\nPresione 'Aceptar'")
+                generate_consolidation_report(cells,techs,siteName)
+                messagebox.showinfo('Información','Terminado!')
+            except:
+                messagebox.showinfo('Información','Algo ha ido mal')
         
     elif reportType == 'Ampliación':
         messagebox.showinfo('Información','Este módulo no está desarrollado en esta versión')
@@ -58,7 +60,7 @@ def display_config(app):
     techs.set(0)
     Entry(panel,font=("Arial",12),bd=1,width=7,state=NORMAL,textvariable=techs).grid(row=3,column=2)
 
-    button = Button(panel,text='Crear',font=("Arial",13,"bold"),fg="black",bg="Gray",bd=2,width=6,command= lambda: create(reportType.get(),cells.get(),techs.get(),siteName.get()))
+    button = Button(panel,text='Crear',font=("Arial",13,"bold"),fg="black",bg="Gray",bd=2,width=6,command= lambda: create(reportType.get(),cells.get(),techs.get(),siteName.get().upper()))
     button.grid(row=4,column=1)
 
     app.mainloop()

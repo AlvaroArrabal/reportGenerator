@@ -1,12 +1,32 @@
-import pandas as pd
 import Domain.modules.getQueryData
 
 
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
 
-def CDR():
+def CDR(NOK,tech):
     # check for multiple peaks or a single peak (or two)
-    pass
+    match tech:
+        case "2G":
+            df = Domain.modules.getQueryData.get2G(NOK[0])
+            data = df.loc[:,["2G_QF_DCR_Voice(%)"]]
+        case "3G":
+            df = Domain.modules.getQueryData.get3G(NOK[0])
+            data = df.loc[:,["3G_QF_DCR_Voice(%)"]]
+        case "4G_Voice":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_VoLTE_DCR(%)"]]
+        case "4G_Packect":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_DCR_PS(%)"]]
+    
+    cont = 0
+    for i in range(len(data)):
+        if type(data.iloc[i][0]) != str and data.iloc[i][0] > 15:
+            cont += 1
+    if cont > 3:
+        return [NOK[0],NOK[1],"NOK"]     # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]      # OK
 
 def CSSR():
     pass
@@ -16,12 +36,11 @@ def calls_ending_3g2g(NOK):
     data = df.loc[:,["3G_QF_Calls ending in 2G(%)"]]
 
     cont = 0
-
+    firstHours = 0
     for i in range(len(data)):
-        if data.iloc[i][0] != '-' and data.iloc[i][0] != '/0':
-            if data.iloc[i][0] > 10:
-                cont += 1
-
+        if type(data.iloc[i][0]) != str and firstHours > 8 and data.iloc[i][0] > 10:
+            cont += 1
+        firstHours += 1
     if cont > 0:
         return [NOK[0],NOK[1],"NOK"]     # NOK
     else:

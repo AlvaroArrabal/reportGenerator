@@ -1,7 +1,7 @@
 <h1>Report Generator</h1>
 
 - **Application**: folder with interface and configuration elements
-    -> interface.py: contains the interface configuration.
+    >- interface.py: contains the interface configuration.
 - **Data**: folder to enter the elements to create the report. **Are mandatory**.
     >- 2g, 3g, 4g and 5g Querys 
     >- Babysitting excel 
