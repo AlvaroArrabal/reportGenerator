@@ -134,4 +134,5 @@ def create_graph(graphList):
             graphname = ".\\graphs\\" +  element + "_" + str(pos) + ".png"
         pos += 1
         fig.savefig(graphname,dpi= 300)
+        plt.close()
 

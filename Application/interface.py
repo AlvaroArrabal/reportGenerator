@@ -16,16 +16,16 @@ def create(reportType,cells,techs,siteName):
     elif reportType == 'Ampliación':
         messagebox.showinfo('Información','Este módulo no está desarrollado en esta versión')
 
-
-def run():
-
+def display_parameters():
     app = Tk()
-
     app.geometry("280x138+0+0")
     app.resizable(0,0)
     app.title("Babysitting C44")
     app.config(bg="white")
 
+    return app
+
+def display_config(app):
     panel = Frame(app,bd=2,relief=FLAT)
     panel.pack(side=TOP)
 
@@ -61,6 +61,6 @@ def run():
     button = Button(panel,text='Crear',font=("Arial",13,"bold"),fg="black",bg="Gray",bd=2,width=6,command= lambda: create(reportType.get(),cells.get(),techs.get(),siteName.get()))
     button.grid(row=4,column=1)
 
-    app.mainloop()
+    Button(panel, text="Quit", command=app.quit).grid(row=4,column=0)
 
-    
+    app.mainloop()

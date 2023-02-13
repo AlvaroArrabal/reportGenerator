@@ -1,7 +1,7 @@
 from Domain import checkNOK
 from Domain.modules import graph,word
 import time
-
+import os
 
 
 def generate_consolidation_report(numCells,numTechs,site):

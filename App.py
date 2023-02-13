@@ -1,3 +1,5 @@
-from Application.interface import run
+from Application.interface import display_parameters,display_config
 
-run()
+app = display_parameters()
+display_config(app)
+
