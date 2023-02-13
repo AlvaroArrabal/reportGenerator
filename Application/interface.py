@@ -61,6 +61,4 @@ def display_config(app):
     button = Button(panel,text='Crear',font=("Arial",13,"bold"),fg="black",bg="Gray",bd=2,width=6,command= lambda: create(reportType.get(),cells.get(),techs.get(),siteName.get()))
     button.grid(row=4,column=1)
 
-    Button(panel, text="Quit", command=app.quit).grid(row=4,column=0)
-
     app.mainloop()

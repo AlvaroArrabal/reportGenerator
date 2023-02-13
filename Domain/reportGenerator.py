@@ -17,7 +17,7 @@ def generate_consolidation_report(numCells,numTechs,site):
         for j in listNOKchecked:
             if i == j[1]:
                 graphList.append(j)
-        graph.create_graph(graphList)
+        graph.create(graphList)
     print("--- %s seconds <graphs> ---" % (time.time() - startTime))
 
     

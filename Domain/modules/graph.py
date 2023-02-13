@@ -57,7 +57,7 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
                 "Tput DL 4G >2Mbps":["4G_QF_Throughput_DL(Mbps)",4,0.5],
                 "Tput UL 4G >500kbps":["4G_QF_Throughput_UL(Mbps)",4,0.5]}
 
-def create_graph(graphList):
+def create(graphList):
     pos = 1
     plt. rc ('xtick', labelsize = 4 )
     plt. rc ('ytick', labelsize = 4 )
