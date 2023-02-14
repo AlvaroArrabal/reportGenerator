@@ -1,5 +1,4 @@
 from Domain.reportGenerator import generate_consolidation_report
-from Domain import checkNOK
 from tkinter import *
 from tkinter import messagebox
 

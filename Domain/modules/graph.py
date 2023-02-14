@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import datetime
 import matplotlib.dates as mdates
 import matplotlib.cbook as cbook
 from Domain.modules import getQueryData
@@ -53,7 +52,7 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
                 "4G CA in PCELL":["4G_QF_CA_Primary_Cell(%)",0],
                 "4G CA in SCELL":["4G_QF_CA_Secondary_Cell(%)",0],
                 "4G IntraLTE HOSR (including preparation) ()":["4G_QF_IntraLTE HOSR (including preparation)()",0],
-                "4G SRVCC HO Att":["SRVCC_Succ(#)",1],
+                "4G SRVCC HO Att":["SRVCC_Att(#)",1],
                 "Tput DL 4G >2Mbps":["4G_QF_Throughput_DL(Mbps)",4,0.5],
                 "Tput UL 4G >500kbps":["4G_QF_Throughput_UL(Mbps)",4,0.5]}
 

@@ -68,7 +68,10 @@ def iniciated_calls(NOK,tech):
     else:
         return [NOK[0],NOK[1],"NOK"]      # NOK
 
-def throughput(NOK,tech):
+def traffic():
+    pass
+
+def throughput_UL(NOK,tech):
     match tech:
         case "2G":
             pass
@@ -87,7 +90,9 @@ def throughput(NOK,tech):
         return [NOK[0],NOK[1],"NOK"]        # NOK
     else:
         return [NOK[0],NOK[1],"OK"]         # OK
-    
+
+def throughput_DL():
+    pass
 
 def interference(NOK):
     # For ICM Band in 2G
@@ -190,9 +195,9 @@ def intraLTEHosr ():
 def SRVCC(NOK):
 
     df = Domain.modules.getQueryData.get4G(NOK[0])
-    data = df.loc[:,["Date","SRVCC_Succ(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
+    data = df.loc[:,["Date","SRVCC_Att(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
 
-    peakSRVCC = data["SRVCC_Succ(#)"].max()
+    peakSRVCC = data["SRVCC_Att(#)"].max()
 
     if peakSRVCC > 0:
         return [NOK[0],NOK[1],"OK"]         # OK
