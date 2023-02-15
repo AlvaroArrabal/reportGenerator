@@ -1,7 +1,7 @@
 from Domain import checkNOK
 from Domain.modules import graph,word
 
-def generate_consolidation_report(numCells,numTechs,site):
+def generate_consolidation_report(numCells,numTechs,site,path):
     
     KPIoverview, listNOKchecked = checkNOK.justification_consolidation(numCells,numTechs)
 
@@ -12,7 +12,7 @@ def generate_consolidation_report(numCells,numTechs,site):
                 graphList.append(j)
         graph.create(graphList)
 
-    word.create(KPIoverview, listNOKchecked,site)
+    word.create(KPIoverview, listNOKchecked,site,path)
 
 
 

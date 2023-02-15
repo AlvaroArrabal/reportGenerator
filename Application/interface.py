@@ -1,6 +1,7 @@
 from Domain.reportGenerator import generate_consolidation_report
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
+import time
 
 def create(reportType,cells,techs,siteName):
     if reportType == 'Consolidación':
@@ -8,11 +9,20 @@ def create(reportType,cells,techs,siteName):
             messagebox.showerror('Error','número de celdas o tecnologías vacia')
         else:
             try:
-                messagebox.showinfo('Información',"No cierre el programa hasta que termine\nPresione 'Aceptar'")
-                generate_consolidation_report(cells,techs,siteName)
-                messagebox.showinfo('Información','Terminado!')
-            except:
-                messagebox.showinfo('Información','Algo ha ido mal')
+                file_path = filedialog.askdirectory()
+                yesno = messagebox.askyesno('Información',"No cierre el programa hasta que termine.\n¿Desea continuar?")
+                if yesno == True:
+                    generate_consolidation_report(cells,techs,siteName,file_path)
+                    messagebox.showinfo('Información','Terminado!')
+                else:
+                    messagebox.showinfo('Información','Operacion cancelada.')
+            except Exception as e:
+                messagebox.showerror('Error',f'Algo ha ido mal\nError: {e}')
+                nameLog = '.\\Config\\ErrorLogs\\Errors.txt'
+                log = open(nameLog,'a')
+                date = time.strftime("%m/%d/%Y - %H:%M:%S")
+                log.write(f"<{date}>\nIn {siteName}: {e}\n")
+                log.write('-'*49)
         
     elif reportType == 'Ampliación':
         messagebox.showinfo('Información','Este módulo no está desarrollado en esta versión')

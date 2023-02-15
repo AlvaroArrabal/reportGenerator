@@ -3,7 +3,7 @@ from docx.shared import Cm
 import time
 # 'KPI':['OK','NOK']
 
-dic = { "2G CDR CS (%)":['',''],
+dic = { "2G CDR CS (%)":['Degradación puntual','Degradaciones repetitivas en '],
         "2G CSSR CS (%)":['',''],
         "2G CSSR PS (%)":['',''],
         "2G Iniciated calls":['Hay llamadas iniciadas','No hay llamadas iniciadas en '],
@@ -12,7 +12,7 @@ dic = { "2G CDR CS (%)":['',''],
         "2G ICMBand () ":['Se cumple el target en horas valle','Valores elevados en horas valle en'],
         "2G Cell Availability (%)":['Valores correctos de availability','Problemas de availability en '],
         "2G Speech disconnections":['',''],
-        "3G CDR CS (%)":['',''],
+        "3G CDR CS (%)":['Degradación puntual','Degradaciones repetitivas en '],
         "3G CSSR CS (%)":['',''],
         "3G CSSR PS (%)":['',''],
         "3G Iniciated calls":['Hay llamadas iniciadas','No hay llamadas iniciadas en '],
@@ -23,8 +23,8 @@ dic = { "2G CDR CS (%)":['',''],
         "3G Calls ending in 2G (%)":['Valores por debajo del umbral del 10%','Valores elevados de 3G calls ending in 2G en '],
         "TH DL (2G3G4G)":['',''],
         "TH UL (2G3G4G)":['',''],
-        "4G CDR (VoLTE) (%)":['',''],
-        "4G_DCR_DATA":['',''],
+        "4G CDR (VoLTE) (%)":['Degradación puntual','Degradaciones repetitivas en '],
+        "4G_DCR_DATA":['Degradación puntual','Degradaciones repetitivas en '],
         "4G CSSR (VoLTE) (%)":['',''],
         "4G CSSR PS (%)":['',''],
         "4G Iniciated calls (VoLTE)":['Hay llamadas iniciadas','No hay llamadas iniciadas en '],
@@ -69,7 +69,7 @@ def justification(cellList):
 
     return text       
     
-def create(listNOK,listNOKchecked,site):
+def create(listNOK,listNOKchecked,site,path):
     
     word = Document()
     
@@ -98,6 +98,6 @@ def create(listNOK,listNOKchecked,site):
                 element = i.replace('>','')
                 word.add_picture(f'.\\graphs\\{element}_{k+1}.png',width=Cm(20))
 
-    name = 'Babysitting_' + site + '.docx'
+    name = path + '\\Babysitting_' + site + '.docx'
     word.save(name)
    
