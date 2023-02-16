@@ -1,3 +1,60 @@
-<02/15/2023 - 17:39:15>
-In MAD1713: 'float' object is not iterable
--------------------------------------------------
+<02/16/2023 - 17:41:01>
+In MAD1713 <Consolidación>:
+'exc_type: <class 'TypeError'>
+exc_value: 'float' object is not iterable'
+
+#########
+TRACEBACK
+Traceback (most recent call last):
+  File "c:\Users\Alvaro.Arrabal\Desktop\IT\babysittingPython\Application\interface.py", line 28, in create
+    generate_consolidation_report(cells,techs,siteName,file_path)
+  File "c:\Users\Alvaro.Arrabal\Desktop\IT\babysittingPython\Domain\reportGenerator.py", line 15, in generate_consolidation_report
+    word.create(KPIoverview, listNOKchecked,site,path,'consolidation')
+  File "c:\Users\Alvaro.Arrabal\Desktop\IT\babysittingPython\Domain\modules\word.py", line 133, in create
+    p.add_run(i).bold = True
+    ^^^^^^^^^^^^
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\text\paragraph.py", line 37, in add_run
+    run.text = text
+    ^^^^^^^^
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\text\run.py", line 163, in text
+    self._r.text = text
+    ^^^^^^^^^^^^
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\oxml\text\run.py", line 104, in text
+    _RunContentAppender.append_to_run_from_text(self, text)
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\oxml\text\run.py", line 134, in append_to_run_from_text
+    appender.add_text(text)
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\oxml\text\run.py", line 141, in add_text
+    for char in text:
+TypeError: 'float' object is not iterable
+
+------------------------------------------------------------
+<02/16/2023 - 17:42:49>
+In MAD1713 <Consolidación>:
+exc_type: <class 'TypeError'>
+exc_value: 'float' object is not iterable
+
+#########
+Traceback (most recent call last):
+  File "c:\Users\Alvaro.Arrabal\Desktop\IT\babysittingPython\Application\interface.py", line 28, in create
+    generate_consolidation_report(cells,techs,siteName,file_path)
+  File "c:\Users\Alvaro.Arrabal\Desktop\IT\babysittingPython\Domain\reportGenerator.py", line 15, in generate_consolidation_report
+    word.create(KPIoverview, listNOKchecked,site,path,'consolidation')
+  File "c:\Users\Alvaro.Arrabal\Desktop\IT\babysittingPython\Domain\modules\word.py", line 133, in create
+    p.add_run(i).bold = True
+    ^^^^^^^^^^^^
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\text\paragraph.py", line 37, in add_run
+    run.text = text
+    ^^^^^^^^
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\text\run.py", line 163, in text
+    self._r.text = text
+    ^^^^^^^^^^^^
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\oxml\text\run.py", line 104, in text
+    _RunContentAppender.append_to_run_from_text(self, text)
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\oxml\text\run.py", line 134, in append_to_run_from_text
+    appender.add_text(text)
+  File "C:\Users\Alvaro.Arrabal\AppData\Local\Programs\Python\Python311\Lib\site-packages\docx\oxml\text\run.py", line 141, in add_text
+    for char in text:
+TypeError: 'float' object is not iterable
+
+#########
+------------------------------------------------------------

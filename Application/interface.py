@@ -2,6 +2,19 @@ from Domain.reportGenerator import generate_consolidation_report,generate_expans
 from tkinter import *
 from tkinter import messagebox, filedialog
 import time
+import traceback
+import sys
+
+def save_error(e,siteName,reportType):
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+
+    nameLog = '.\\Config\\ErrorLogs\\Errors.txt'
+    log = open(nameLog,'a')
+    date = time.strftime("%m/%d/%Y - %H:%M:%S")
+    error = traceback.format_exc()
+    log.write(f"<{date}>\nIn {siteName} <{reportType}>:\nexc_type: {exc_type}\nexc_value: {exc_value}\n\n#########\n{error}\n#########\n")
+    log.write('-'*60)
+    log.write('\n')  
 
 def create(reportType,cells,techs,siteName):
     if cells == 0 or techs == 0:
@@ -20,12 +33,9 @@ def create(reportType,cells,techs,siteName):
                 messagebox.showinfo('Información','Operacion cancelada.')
         except Exception as e:
             messagebox.showerror('Error',f'Algo ha ido mal\nError: {e}')
-            nameLog = '.\\Config\\ErrorLogs\\Errors.txt'
-            log = open(nameLog,'a')
-            date = time.strftime("%m/%d/%Y - %H:%M:%S")
-            log.write(f"<{date}>\nIn {siteName}: {e}\n")
-            log.write('-'*49)
-        
+            save_error(e,siteName,reportType)
+            
+            
 
 
 def display_parameters():
