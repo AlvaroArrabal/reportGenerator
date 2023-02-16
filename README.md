@@ -33,7 +33,7 @@
 >- Consolidation report: 2G/3G/4G (The following KPI are not in this version: CSSR, Speech Disconnections)
 >- Expansion report: NOT in this version (coming soon)
 
-<h3>Version 0.2</h3>
+<h2>Version 0.2</h2>
 
 - **NºSectores**: number of sectors the site has
 
