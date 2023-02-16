@@ -44,7 +44,10 @@ def get4G(site):
 
 def get5G(site):
     path5g = currentPath + "\\Data\\5g.xlsx"
-    df = pd.read_excel(path5g,engine="openpyxl")
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        df = pd.read_excel(path5g,engine="openpyxl")
+    
 
     data =  df.groupby("Cell Name")
 

@@ -6,7 +6,7 @@ import warnings
 
 
 def expansion(numCells,numTechs):
-    pathNOK = currentPath + "\\Data\\Babysitting_1.xlsx"
+    pathNOK = currentPath + "\\Data\\Babysitting.xlsx"
     df = pd.read_excel(pathNOK, engine="openpyxl")
     columns = []
 

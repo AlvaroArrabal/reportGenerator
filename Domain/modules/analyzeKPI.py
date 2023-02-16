@@ -68,22 +68,51 @@ def iniciated_calls(NOK,tech):
     else:
         return [NOK[0],NOK[1],"NOK"]      # NOK
 
-def traffic():
-    pass
+def traffic_UL(NOK,tech):
+    match tech:
+        case "3G":
+            df = Domain.modules.getQueryData.get3G(NOK[0])
+            data = df.loc[:,["3G_QF_RSSI_UL(dBm)"]]
+        case "4G":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_Uplink_Traffic_Volume(MB)"]]
+        case "5G":
+            df = Domain.modules.getQueryData.get5G(NOK[0])
+            data = df.loc[:,["5G_QF UL Traffic Volume(GB)"]]
+
+def traffic_DL(NOK,tech):
+    match tech:
+        case "3G":
+            df = Domain.modules.getQueryData.get3G(NOK[0])
+            data = df.loc[:,["3G_QF_RSSI_UL(dBm)"]]
+        case "4G":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_Downlink_Traffic_Volume(MB)"]]
+        case "5G":
+            df = Domain.modules.getQueryData.get5G(NOK[0])
+            data = df.loc[:,["5G_QF DL Traffic Volume(GB)"]]
 
 def throughput_UL(NOK,tech):
     match tech:
         case "2G":
-            pass
-        case "3G":
-            pass
+            df = Domain.modules.getQueryData.get2G(NOK[0])
+            data = df.loc[:,["2G_QF_UL_Data_Traffic(kB)"]]
+            target = 0
         case "4G":
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_Throughput_UL(Mbps)"]]
-             
+            target = 0.5
+        case "5G":
+            df = Domain.modules.getQueryData.get5G(NOK[0])
+            data = df.loc[:,["5G_QF UL Throughput Cell(Mbps)","5G_QF UL Traffic Volume(GB)"]]    
+
+            if data["5G_QF UL Traffic Volume(GB)"].sum() > 0:
+                return [NOK[0],NOK[1],"5G_QF UL Traffic Volume(GB)"]        # OK
+            else:
+                return [NOK[0],NOK[1],"NOK"]                                # NOK
     cont =0
     for i in range(len(data)):
-        if type(data.iloc[i][0]) != str and data.iloc[i][0] >= 0.5:
+        if type(data.iloc[i][0]) != str and data.iloc[i][0] >= target:
             cont += 1
         
     if cont < 5:
@@ -91,8 +120,28 @@ def throughput_UL(NOK,tech):
     else:
         return [NOK[0],NOK[1],"OK"]         # OK
 
-def throughput_DL():
-    pass
+def throughput_DL(NOK,tech):
+    match tech:
+        case "2G":
+            df = Domain.modules.getQueryData.get2G(NOK[0])
+            data = df.loc[:,["2G_QF_DL_Data_Traffic(kB)"]]
+            target = 0
+        case "4G":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_Throughput_DL(Mbps)"]]
+            target = 2
+        case "5G":
+            df = Domain.modules.getQueryData.get5G(NOK[0])
+            data = df.loc[:,["5G_QF DL Throughput Cell(Mbps)","5G_QF DL Traffic Volume(GB)"]]    
+
+            if data["5G_QF DL Traffic Volume(GB)"].sum() > 0:
+                return [NOK[0],NOK[1],"5G_QF DL Traffic Volume(GB)"]        # OK
+            else:
+                return [NOK[0],NOK[1],"NOK"]                                # NOK
+    cont =0
+    for i in range(len(data)):
+        if type(data.iloc[i][0]) != str and data.iloc[i][0] >= target:
+            cont += 1
 
 def interference(NOK):
     # For ICM Band in 2G
@@ -195,7 +244,7 @@ def intraLTEHosr ():
 def SRVCC(NOK):
 
     df = Domain.modules.getQueryData.get4G(NOK[0])
-    data = df.loc[:,["Date","SRVCC_Att(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
+    data = df.loc[:,["SRVCC_Att(#)","4G_QF_VoLTE_Initiated_Calls(#)"]]
 
     peakSRVCC = data["SRVCC_Att(#)"].max()
 

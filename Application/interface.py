@@ -1,31 +1,32 @@
-from Domain.reportGenerator import generate_consolidation_report
+from Domain.reportGenerator import generate_consolidation_report,generate_expansion_report
 from tkinter import *
 from tkinter import messagebox, filedialog
 import time
 
 def create(reportType,cells,techs,siteName):
-    if reportType == 'Consolidación':
-        if cells == 0 or techs == 0:
-            messagebox.showerror('Error','número de celdas o tecnologías vacia')
-        else:
-            try:
-                file_path = filedialog.askdirectory()
-                yesno = messagebox.askyesno('Información',"No cierre el programa hasta que termine.\n¿Desea continuar?")
-                if yesno == True:
+    if cells == 0 or techs == 0:
+        messagebox.showerror('Error','número de celdas o tecnologías vacia')
+    else:
+        try:
+            file_path = filedialog.askdirectory()
+            yesno = messagebox.askyesno('Información',"No cierre el programa hasta que termine.\n¿Desea continuar?")
+            if yesno == True:
+                if reportType == 'Consolidación': 
                     generate_consolidation_report(cells,techs,siteName,file_path)
-                    messagebox.showinfo('Información','Terminado!')
                 else:
-                    messagebox.showinfo('Información','Operacion cancelada.')
-            except Exception as e:
-                messagebox.showerror('Error',f'Algo ha ido mal\nError: {e}')
-                nameLog = '.\\Config\\ErrorLogs\\Errors.txt'
-                log = open(nameLog,'a')
-                date = time.strftime("%m/%d/%Y - %H:%M:%S")
-                log.write(f"<{date}>\nIn {siteName}: {e}\n")
-                log.write('-'*49)
+                    generate_expansion_report(cells,techs,siteName,file_path)
+                messagebox.showinfo('Información','Terminado!')
+            else:
+                messagebox.showinfo('Información','Operacion cancelada.')
+        except Exception as e:
+            messagebox.showerror('Error',f'Algo ha ido mal\nError: {e}')
+            nameLog = '.\\Config\\ErrorLogs\\Errors.txt'
+            log = open(nameLog,'a')
+            date = time.strftime("%m/%d/%Y - %H:%M:%S")
+            log.write(f"<{date}>\nIn {siteName}: {e}\n")
+            log.write('-'*49)
         
-    elif reportType == 'Ampliación':
-        messagebox.showinfo('Información','Este módulo no está desarrollado en esta versión')
+
 
 def display_parameters():
     app = Tk()
