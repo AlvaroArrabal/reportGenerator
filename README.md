@@ -30,5 +30,18 @@
 
 - **Report type**: 
 
->- Consolidation report: 2G/3G/4G 
+>- Consolidation report: 2G/3G/4G (The following KPI are not in this version: CSSR, Speech Disconnections)
 >- Expansion report: NOT in this version (coming soon)
+
+<h3>Version 0.2</h3>
+
+- **NºSectores**: number of sectors the site has
+
+- **NºBandas**: number of bands on the site 
+
+- **Report type**: 
+
+- Now you can choose the folder for saving the report
+
+>- Consolidation report: 2G/3G/4G (The following KPI are not available in this version: CSSR, Speech Disconnections)
+>- Expansion report: Already available, but still in testing.
