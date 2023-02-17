@@ -3,22 +3,22 @@ from Domain.modules import analyzeKPI,getNOKreport
 
 def justification_consolidation(numCells,numTechs):
 
-    listNOK = getNOKreport.consolidation(numCells,numTechs)
+    listCellsNOK = getNOKreport.consolidation(numCells,numTechs)
     KPIoverview = set()
 
     listNOKchecked = []
-    for i in range(len(listNOK)):
-        KPIoverview.add(listNOK[i][1])
-        match listNOK[i][1]:
+    for i in range(len(listCellsNOK)):
+        KPIoverview.add(listCellsNOK[i].kpiName)
+        match listCellsNOK[i].kpiName:
             case '2G CDR CS (%)':
                 # 3º NOK_i = analyzeKPI
-                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"2G"))
+                listNOKchecked.append(analyzeKPI.CDR(listCellsNOK[i],"2G"))
             case '3G CDR CS (%)':
-                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"3G"))
+                listNOKchecked.append(analyzeKPI.CDR(listCellsNOK[i],"3G"))
             case '4G CDR CS (%)':
-                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Voice"))
+                listNOKchecked.append(analyzeKPI.CDR(listCellsNOK[i],"4G_Voice"))
             case '4G_DCR_DATA ':
-                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Packect"))
+                listNOKchecked.append(analyzeKPI.CDR(listCellsNOK[i],"4G_Packect"))
             case '2G CSSR CS (%)':
                 pass
             case '3G CSSR CS (%)':
@@ -26,57 +26,57 @@ def justification_consolidation(numCells,numTechs):
             case '4G CSSR CS (%)':
                 pass
             case '2G Iniciated calls':
-                listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"2G"))
+                listNOKchecked.append(analyzeKPI.iniciated_calls(listCellsNOK[i],"2G"))
             case '3G Iniciated calls':
-                listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"3G"))
+                listNOKchecked.append(analyzeKPI.iniciated_calls(listCellsNOK[i],"3G"))
             case '4G Iniciated calls (VoLTE)':
-                listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"4G"))
+                listNOKchecked.append(analyzeKPI.iniciated_calls(listCellsNOK[i],"4G"))
             case '2G DL Data traffic (KB)':
-                listNOKchecked.append(analyzeKPI.traffic_DL(listNOK[i],"2G"))
+                listNOKchecked.append(analyzeKPI.traffic_DL(listCellsNOK[i],"2G"))
             case '2G UL Data traffic (KB)':
-                listNOKchecked.append(analyzeKPI.traffic_UL(listNOK[i],"2G"))
+                listNOKchecked.append(analyzeKPI.traffic_UL(listCellsNOK[i],"2G"))
             case '3G DL Data traffic (KB)':
                 pass
             case '3G UL Data traffic (KB)':
                 pass
             case '4G DL Data traffic (MB)':
-                listNOKchecked.append(analyzeKPI.traffic_DL(listNOK[i],"4G"))
+                listNOKchecked.append(analyzeKPI.traffic_DL(listCellsNOK[i],"4G"))
             case '4G UL Data traffic (MB)':
-                listNOKchecked.append(analyzeKPI.traffic_UL(listNOK[i],"4G"))
+                listNOKchecked.append(analyzeKPI.traffic_UL(listCellsNOK[i],"4G"))
             case 'Tput DL 4G >2Mbps':
-                listNOKchecked.append(analyzeKPI.throughput_DL(listNOK[i],"4G"))
+                listNOKchecked.append(analyzeKPI.throughput_DL(listCellsNOK[i],"4G"))
             case 'Tput UL 4G >500kbps':
-                listNOKchecked.append(analyzeKPI.throughput_UL(listNOK[i],"4G"))
+                listNOKchecked.append(analyzeKPI.throughput_UL(listCellsNOK[i],"4G"))
             case '2G ICMBand () ':
-                listNOKchecked.append(analyzeKPI.interference(listNOK[i]))
+                listNOKchecked.append(analyzeKPI.interference(listCellsNOK[i]))
             case '3G RTWP (dBm)':
-                listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"3G"))
+                listNOKchecked.append(analyzeKPI.RSSI(listCellsNOK[i],"3G"))
             case '4G Interference PUSCH (dBm)':
-                listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
+                listNOKchecked.append(analyzeKPI.RSSI(listCellsNOK[i],"4G"))
             case '2G Cell Availability (%)':
-                listNOKchecked.append(analyzeKPI.availability(listNOK[i],"2G"))
+                listNOKchecked.append(analyzeKPI.availability(listCellsNOK[i],"2G"))
             case '3G Cell Availability (%)':
-                listNOKchecked.append(analyzeKPI.availability(listNOK[i],"3G"))
+                listNOKchecked.append(analyzeKPI.availability(listCellsNOK[i],"3G"))
             case '4G Cell Availability (%)':
-                listNOKchecked.append(analyzeKPI.availability(listNOK[i],"4G"))
+                listNOKchecked.append(analyzeKPI.availability(listCellsNOK[i],"4G"))
             case '4G MIMO (Rank2) (%)':
-                listNOKchecked.append(analyzeKPI.MIMO_rank2(listNOK[i]))
+                listNOKchecked.append(analyzeKPI.MIMO_rank2(listCellsNOK[i]))
             case '4G MIMO (Rank4) (%)':
-                listNOKchecked.append(analyzeKPI.MIMO_rank4(listNOK[i]))
+                listNOKchecked.append(analyzeKPI.MIMO_rank4(listCellsNOK[i]))
             case '4G CSFB E2W':
-                listNOKchecked.append(analyzeKPI.CSFB(listNOK[i]))
+                listNOKchecked.append(analyzeKPI.CSFB(listCellsNOK[i]))
             case '4G CA in PCELL':
-                listNOKchecked.append(analyzeKPI.CA(listNOK[i],"primaryCell"))
+                listNOKchecked.append(analyzeKPI.CA(listCellsNOK[i],"primaryCell"))
             case '4G CA in SCELL':
-                listNOKchecked.append(analyzeKPI.CA(listNOK[i],"secondaryCell"))
+                listNOKchecked.append(analyzeKPI.CA(listCellsNOK[i],"secondaryCell"))
             case '2G Speech disconnections':
                 pass
             case '3G Calls ending in 2G (%)':
-                listNOKchecked.append(analyzeKPI.calls_ending_3g2g(listNOK[i]))
+                listNOKchecked.append(analyzeKPI.calls_ending_3g2g(listCellsNOK[i]))
             case '4G IntraLTE HOSR (including preparation) (%)':
                 pass
             case '4G SRVCC HO Att':
-                listNOKchecked.append(analyzeKPI.SRVCC(listNOK[i]))
+                listNOKchecked.append(analyzeKPI.SRVCC(listCellsNOK[i]))
                 
     return KPIoverview, listNOKchecked
           

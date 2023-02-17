@@ -102,7 +102,7 @@ def create(graphList):
             
             
         if "2G" in i[1] and "3G" not in i[1]:
-            df = getQueryData.get2G(i[0])
+            df = getQueryData.get2GDf(i[0])
         elif "3G" in i[1]:
             df = getQueryData.get3G(i[0])
         elif "4G" in i[1]:

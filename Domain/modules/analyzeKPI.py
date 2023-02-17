@@ -3,30 +3,32 @@ import Domain.modules.getQueryData
 
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
 
-def CDR(NOK,tech):
+def check_CDR_is_OK(cell,tech):
     # check for multiple peaks or a single peak (or two)
     match tech:
         case "2G":
-            df = Domain.modules.getQueryData.get2G(NOK[0])
-            data = df.loc[:,["2G_QF_DCR_Voice(%)"]]
+            df = Domain.modules.getQueryData.get2GDf(cell.cellName)
+            cellReport = df.loc[:,["2G_QF_DCR_Voice(%)"]]
         case "3G":
-            df = Domain.modules.getQueryData.get3G(NOK[0])
-            data = df.loc[:,["3G_QF_DCR_Voice(%)"]]
+            df = Domain.modules.getQueryData.get3G(cell.cellName)
+            cellReport = df.loc[:,["3G_QF_DCR_Voice(%)"]]
         case "4G_Voice":
-            df = Domain.modules.getQueryData.get4G(NOK[0])
-            data = df.loc[:,["4G_QF_VoLTE_DCR(%)"]]
+            df = Domain.modules.getQueryData.get4G(cell.cellName)
+            cellReport = df.loc[:,["4G_QF_VoLTE_DCR(%)"]]
         case "4G_Packect":
-            df = Domain.modules.getQueryData.get4G(NOK[0])
-            data = df.loc[:,["4G_QF_DCR_PS(%)"]]
-    
+            df = Domain.modules.getQueryData.get4G(cell.cellName)
+            cellReport = df.loc[:,["4G_QF_DCR_PS(%)"]]
     cont = 0
-    for i in range(len(data)):
-        if type(data.iloc[i][0]) != str and data.iloc[i][0] > 15:
+    for i in range(len(cellReport)):
+        if type(cellReport.iloc[i][0]) != str and cellReport.iloc[i][0] > 15:
             cont += 1
+
     if cont > 3:
-        return [NOK[0],NOK[1],"NOK"]     # NOK
+        cell.status = False
+        return [cell]     # NOK
     else:
-        return [NOK[0],NOK[1],"OK"]      # OK
+        cell.status = True
+        return [cell]      # OK
 
 def CSSR():
     pass
@@ -50,7 +52,7 @@ def iniciated_calls(NOK,tech):
 
     match tech:
         case "2G":
-            df = Domain.modules.getQueryData.get2G(NOK[0])
+            df = Domain.modules.getQueryData.get2GDf(NOK[0])
             data = df.loc[:,["2G_QF_Established_Calls(#)"]]
             total = data["2G_QF_Established_Calls(#)"].sum()
         case "3G":
@@ -95,7 +97,7 @@ def traffic_DL(NOK,tech):
 def throughput_UL(NOK,tech):
     match tech:
         case "2G":
-            df = Domain.modules.getQueryData.get2G(NOK[0])
+            df = Domain.modules.getQueryData.get2GDf(NOK[0])
             data = df.loc[:,["2G_QF_UL_Data_Traffic(kB)"]]
             target = 0
         case "4G":
@@ -123,7 +125,7 @@ def throughput_UL(NOK,tech):
 def throughput_DL(NOK,tech):
     match tech:
         case "2G":
-            df = Domain.modules.getQueryData.get2G(NOK[0])
+            df = Domain.modules.getQueryData.get2GDf(NOK[0])
             data = df.loc[:,["2G_QF_DL_Data_Traffic(kB)"]]
             target = 0
         case "4G":
@@ -146,7 +148,7 @@ def throughput_DL(NOK,tech):
 def interference(NOK):
     # For ICM Band in 2G
 
-    df = Domain.modules.getQueryData.get2G(NOK[0])
+    df = Domain.modules.getQueryData.get2GDf(NOK[0])
     data = df.loc[:,["Date","2G_QF_ICMBand_(% Samples >3)(%)"]]
 
     totalRssi = []
@@ -165,7 +167,7 @@ def interference(NOK):
 def availability(NOK,tech):
     match tech:
         case "2G":
-            df = Domain.modules.getQueryData.get2G(NOK[0])
+            df = Domain.modules.getQueryData.get2GDf(NOK[0])
             data = df.loc[:,["2G_QF_Cell_Availability_Rate(%)"]]
             average = data["2G_QF_Cell_Availability_Rate(%)"].mean()
             

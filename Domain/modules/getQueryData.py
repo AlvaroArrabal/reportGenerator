@@ -3,9 +3,14 @@ import os
 currentPath = os.getcwd()
 import warnings
 
+class GSMrepo:
+    def __init__(self):
+        pass
+    
+    def getDCRVoice(self,cellName):
+        pass
 
-
-def get2G(site):
+def get2GDf(site):
     
     path2g = currentPath + "\\Data\\2g.xlsx"
     with warnings.catch_warnings(record=True):

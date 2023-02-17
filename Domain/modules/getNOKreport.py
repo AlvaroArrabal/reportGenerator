@@ -1,8 +1,13 @@
 import pandas as pd
 import os
 currentPath = os.getcwd()
-import warnings
 
+class Cell:
+    def __init__(self,cellName,kpiName,status,relatedKPI):
+        self.cellName = cellName
+        self.kpiName = kpiName
+        self.status = status
+        self.relatedKPI = relatedKPI
 
 
 def expansion(numCells,numTechs):
@@ -22,7 +27,7 @@ def expansion(numCells,numTechs):
     for i in range(len(columnsList)):
         for j in range(len(columnsList[i])):
             if columnsList[i].iloc[j][columns[i][3]] == "NOK": 
-                NOKList.append([columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 3"]])
+                NOKList.append(Cell(columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 3"],False,None))
     return NOKList
 
 def consolidation(numCells,numTechs):
@@ -44,6 +49,5 @@ def consolidation(numCells,numTechs):
     for i in range(len(columnsList)):
         for j in range(len(columnsList[i])):
             if columnsList[i].iloc[j][columns[i][3]] == "NOK": 
-                #NOKList.append([columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 1"],columnsList[i].iloc[j][1]])
-                NOKList.append([columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 1"]])
+                NOKList.append(Cell(columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 1"]))
     return NOKList
