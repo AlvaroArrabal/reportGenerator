@@ -2,6 +2,7 @@ import pandas as pd
 import os
 currentPath = os.getcwd()
 import warnings
+import numpy as np
 
 
 
@@ -11,7 +12,7 @@ def get2G(site):
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         df = pd.read_excel(path2g, engine="openpyxl")
-
+    df = df.replace({"/0": np.nan})
     data =  df.groupby("Cell Name")
     
     return data.get_group(site)
@@ -24,7 +25,7 @@ def get3G(site):
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         df = pd.read_excel(path3g, engine="openpyxl")
-
+    df = df.replace({"/0": np.nan})
     data =  df.groupby("Cell Name")
     
     return data.get_group(site)
@@ -36,7 +37,7 @@ def get4G(site):
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         df = pd.read_excel(path4g, engine="openpyxl")
-
+    df = df.replace({"/0": np.nan})
     data =  df.groupby("Cell Name")
     
     return data.get_group(site)
@@ -47,7 +48,7 @@ def get5G(site):
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         df = pd.read_excel(path5g,engine="openpyxl")
-    
+    df = df.replace({"/0": np.nan})
 
     data =  df.groupby("Cell Name")
 

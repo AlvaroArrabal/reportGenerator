@@ -109,12 +109,10 @@ def create(graphList):
             df = getQueryData.get4G(i[0])
         elif "5G" in i[1]:
             df = getQueryData.get5G(i[0])
+
         if i[2] == "OK" or i[2] == "NOK":
         
             data = df.loc[:,["Date",equivalent[i[1]][0]]]
-            for j in range(len(data)):
-                if type(data.iloc[j][1]) == str:
-                    data.iloc[j][1] = np.nan
             
             data["Date"] = pd.to_datetime(data["Date"])
 
@@ -142,6 +140,7 @@ def create(graphList):
         else:
 
             data = df.loc[:,["Date",equivalent[i[1]][0],i[2]]]
+            
             data["Date"] = pd.to_datetime(data["Date"])
             
             ax = plt.subplot()
