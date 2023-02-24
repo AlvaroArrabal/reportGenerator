@@ -28,8 +28,8 @@ def CDR(NOK,tech):
     else:
         return [NOK[0],NOK[1],"OK"]      # OK
 
-def CSSR():
-    pass
+def CSSR(NOK):
+    return [NOK[0],NOK[1],"NOK"]     # NOK
 
 def calls_ending_3g2g(NOK):
     df = Domain.modules.getQueryData.get3G(NOK[0])
@@ -263,7 +263,7 @@ def RSSI(NOK,tech):
     match tech:
         case "3G":
             df = Domain.modules.getQueryData.get3G(NOK[0])
-            data = df.loc[:,["Date","3G_QF_RSSI_UL(dBm)"]]
+            data = df.loc[:,["Date","UL RSSI(dBm)"]]
             target = -100
         case "4G":
             df = Domain.modules.getQueryData.get4G(NOK[0])

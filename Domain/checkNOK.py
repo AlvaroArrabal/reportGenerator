@@ -15,7 +15,7 @@ def justification_consolidation(numCells,numTechs):
                 listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"2G"))
             case '3G CDR CS (%)':
                 listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"3G"))
-            case '4G CDR CS (%)':
+            case '4G CDR (VoLTE) (%)':
                 listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Voice"))
             case '4G_DCR_DATA ':
                 listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Packect"))

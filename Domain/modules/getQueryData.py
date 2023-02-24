@@ -13,6 +13,7 @@ def get2G(site):
         warnings.simplefilter("always")
         df = pd.read_excel(path2g, engine="openpyxl")
     df = df.replace({"/0": np.nan})
+    df = df.replace({"-": np.nan})
     data =  df.groupby("Cell Name")
     
     return data.get_group(site)
@@ -26,6 +27,7 @@ def get3G(site):
         warnings.simplefilter("always")
         df = pd.read_excel(path3g, engine="openpyxl")
     df = df.replace({"/0": np.nan})
+    df = df.replace({"-": np.nan})
     data =  df.groupby("Cell Name")
     
     return data.get_group(site)
@@ -38,6 +40,7 @@ def get4G(site):
         warnings.simplefilter("always")
         df = pd.read_excel(path4g, engine="openpyxl")
     df = df.replace({"/0": np.nan})
+    df = df.replace({"-": np.nan})
     data =  df.groupby("Cell Name")
     
     return data.get_group(site)
