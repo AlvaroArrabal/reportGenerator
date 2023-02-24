@@ -20,11 +20,11 @@ def justification_consolidation(numCells,numTechs):
             case '4G_DCR_DATA ':
                 listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Packect"))
             case '2G CSSR CS (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.CSSR_voice(listNOK[i],"2G"))
             case '3G CSSR CS (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.CSSR_voice(listNOK[i],"3G"))
             case '4G CSSR CS (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.CSSR_voice(listNOK[i],"4G"))
             case '2G Iniciated calls':
                 listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"2G"))
             case '3G Iniciated calls':

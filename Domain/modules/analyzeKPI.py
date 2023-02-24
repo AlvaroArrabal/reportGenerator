@@ -28,8 +28,48 @@ def CDR(NOK,tech):
     else:
         return [NOK[0],NOK[1],"OK"]      # OK
 
-def CSSR(NOK):
-    return [NOK[0],NOK[1],"NOK"]     # NOK
+def CSSR_voice(NOK,tech):
+    match tech:
+        case "2G":
+            df = Domain.modules.getQueryData.get2G(NOK[0])
+            data = df.loc[:,["2G_QF_CSSR_Voice(%)"]]
+        case "3G":
+            df = Domain.modules.getQueryData.get3G(NOK[0])
+            data = df.loc[:,["3G_QF_CSSR_CS(%)"]]
+        case "4G_Voice":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_VoLTE_CSSR(%)"]]
+
+    for i in range(len(data)):
+        if type(data.iloc[i][0]) != str and data.iloc[i][0] < 90:
+            cont += 1
+
+    if cont > 4:
+        return [NOK[0],NOK[1],"NOK"]     # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]      # OK
+    
+
+def CSSR_data(NOK,tech):
+    match tech:
+        case "2G":
+            df = Domain.modules.getQueryData.get2G(NOK[0])
+            data = df.loc[:,["2G_QF_CSSR_Data(%)"]]
+        case "3G":
+            df = Domain.modules.getQueryData.get3G(NOK[0])
+            data = df.loc[:,["3G_QF_CSSR_PS(%)"]]
+        case "4G_Voice":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_CSSR_PS_ERAB(%)"]]
+    cont = 0
+    for i in range(len(data)):
+        if type(data.iloc[i][0]) != str and data.iloc[i][0] < 90:
+            cont += 1
+
+    if cont > 4:
+        return [NOK[0],NOK[1],"NOK"]     # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]      # OK
 
 def calls_ending_3g2g(NOK):
     df = Domain.modules.getQueryData.get3G(NOK[0])
@@ -38,7 +78,7 @@ def calls_ending_3g2g(NOK):
     cont = 0
     firstHours = 0
     for i in range(len(data)):
-        if type(data.iloc[i][0]) != str and firstHours > 8 and data.iloc[i][0] > 10:
+        if type(data.iloc[i][0]) != str and firstHours > 9 and data.iloc[i][0] > 10:
             cont += 1
         firstHours += 1
     if cont > 0:
