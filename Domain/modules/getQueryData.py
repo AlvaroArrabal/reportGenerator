@@ -52,7 +52,7 @@ def get5G(site):
         warnings.simplefilter("always")
         df = pd.read_excel(path5g,engine="openpyxl")
     df = df.replace({"/0": np.nan})
-
+    df = df.replace({"-": np.nan})
     data =  df.groupby("Cell Name")
 
     return data.get_group(site)

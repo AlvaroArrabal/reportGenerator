@@ -115,6 +115,8 @@ def justification_expansion(numCells,numTechs):
                 listNOKchecked.append(analyzeKPI.traffic_UL(listNOK[i],"5G"))
             case 'Interference 4G PUSCH UL (RSSI UL 4G) ':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
+            case 'Interference 4G PUSCH UL (RSSI UL 4G)':
+                listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"4G"))
             case 'Interference 5G UL (RSSI UL 5G) *':
                 listNOKchecked.append(analyzeKPI.RSSI(listNOK[i],"5G"))
             case '4G_Availability_Cell_Rate_Hourly':

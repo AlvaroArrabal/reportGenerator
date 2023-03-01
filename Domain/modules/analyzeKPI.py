@@ -1,5 +1,5 @@
 import Domain.modules.getQueryData
-
+import numpy as np
 
 offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
 
@@ -319,7 +319,7 @@ def RSSI(NOK,tech):
         
         hour = data.iloc[i][0][-5:]
         
-        if hour in offPeakHours and type(data.iloc[i][1]) != str:
+        if hour in offPeakHours and type(data.iloc[i][1]) != str and np.isnan(data.iloc[i][1]) == False:
             totalRssi.append(data.iloc[i][1])
 
     average = sum(totalRssi)/len(totalRssi)
