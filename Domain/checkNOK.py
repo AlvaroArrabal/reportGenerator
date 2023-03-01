@@ -70,13 +70,20 @@ def justification_consolidation(numCells,numTechs):
             case '4G CA in SCELL':
                 listNOKchecked.append(analyzeKPI.CA(listNOK[i],"secondaryCell"))
             case '2G Speech disconnections':
-                pass
+                listNOKchecked.append(analyzeKPI.speech_disconnections(listNOK[i]))
             case '3G Calls ending in 2G (%)':
                 listNOKchecked.append(analyzeKPI.calls_ending_3g2g(listNOK[i]))
             case '4G IntraLTE HOSR (including preparation) (%)':
                 pass
             case '4G SRVCC HO Att':
                 listNOKchecked.append(analyzeKPI.SRVCC(listNOK[i]))
+            case "2G CSSR PS (%)":
+                listNOKchecked.append(analyzeKPI.CSSR_data(listNOK[i],"2G"))
+            case "3G CSSR PS (%)":
+                listNOKchecked.append(analyzeKPI.CSSR_data(listNOK[i],"3G"))
+            case "4G CSSR PS (%)":
+                listNOKchecked.append(analyzeKPI.CSSR_data(listNOK[i],"4G"))
+
                 
     return KPIoverview, listNOKchecked
           

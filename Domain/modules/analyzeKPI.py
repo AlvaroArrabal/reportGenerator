@@ -86,6 +86,15 @@ def calls_ending_3g2g(NOK):
     else:
         return [NOK[0],NOK[1],"OK"]      # OK
 
+def speech_disconnections(NOK):
+    df = Domain.modules.getQueryData.get3G(NOK[0])
+    data = df.loc[:,["CELL.SPEECH.DISC.TIMES.NO.CIRCUIT.CHAN"]]
+    total = data["CELL.SPEECH.DISC.TIMES.NO.CIRCUIT.CHAN"].sum()
+    
+    if total > 3:
+        return [NOK[0],NOK[1],"NOK"]     # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]      # OK
 def iniciated_calls(NOK,tech):
 
     match tech:
