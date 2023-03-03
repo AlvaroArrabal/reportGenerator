@@ -8,11 +8,15 @@ import sys
 def save_error(e,siteName,reportType):
     exc_type, exc_value, exc_traceback = sys.exc_info()
 
-    nameLog = '.\\Config\\ErrorLogs\\Errors.txt'
+    dateLog = time.strftime("%m_%d_%Y")
+
+    nameLog = '.\\Config\\ErrorLogs\\Errors_' + dateLog +'.txt'
+
     log = open(nameLog,'a')
-    date = time.strftime("%m/%d/%Y - %H:%M:%S")
+    
+    dateError = time.strftime("- %H:%M:%S -")
     error = traceback.format_exc()
-    log.write(f"<{date}>\nIn {siteName} <{reportType}>:\nexc_type: {exc_type}\nexc_value: {exc_value}\n\n#########\n{error}\n#########\n")
+    log.write(f"<{dateError}>\nIn {siteName} <{reportType}>:\nexc_type: {exc_type}\nexc_value: {exc_value}\n\n#########\n{error}\n#########\n")
     log.write('-'*60)
     log.write('\n')  
 
