@@ -39,7 +39,7 @@ def CSSR_voice(NOK,tech):
         case "4G_Voice":
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_VoLTE_CSSR(%)"]]
-
+    cont = 0
     for i in range(len(data)):
         if type(data.iloc[i][0]) != str and data.iloc[i][0] < 90:
             cont += 1

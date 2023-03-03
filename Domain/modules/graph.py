@@ -17,18 +17,18 @@ from Domain.modules import getQueryData
 # 3 -> line graph with limits
 # 4 -> line graph with target
 
-equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
-                "2G CSSR CS (%)":["2G_QF_CSSR_Voice(%)",0],
-                "2G CSSR PS (%)":["2G_QF_CSSR_Data(%)",0],
+equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",3],
+                "2G CSSR CS (%)":["2G_QF_CSSR_Voice(%)",3],
+                "2G CSSR PS (%)":["2G_QF_CSSR_Data(%)",3],
                 "2G Iniciated calls":["2G_QF_Initiated_Calls(#)",1],
                 "2G DL Data traffic (KB)":["2G_QF_DL_Data_Traffic(KB)",0],
                 "2G UL Data traffic (KB)":["2G_QF_UL_Data_Traffic(KB)",0],
                 "2G ICMBand () ":["2G_QF_ICMBand_(% Samples >3)(%)",3],
                 "2G Cell Availability (%)":["2G_QF_Cell_Availability_Rate(%)",2],
                 "2G Speech disconnections":["CELL.SPEECH.DISC.TIMES.NO.CIRCUIT.CHAN(Times)",0],
-                "3G CDR CS (%)":["3G_QF_DCR_Voice(%)",0],
-                "3G CSSR CS (%)":["3G_QF_CSSR_CS(%)",0],
-                "3G CSSR PS (%)":["3G_QF_CSSR_PS(%)",0],
+                "3G CDR CS (%)":["3G_QF_DCR_Voice(%)",3],
+                "3G CSSR CS (%)":["3G_QF_CSSR_CS(%)",3],
+                "3G CSSR PS (%)":["3G_QF_CSSR_PS(%)",3],
                 "3G Iniciated calls":["3G_QF_Initiated_Calls(#)",1],
                 "3G DL Data traffic (KB)":["3G_QF_DL_Data_Traffic(KB)",0],
                 "3G UL Data traffic (KB)":["3G_QF_UL_Data_Traffic(KB)",0],
@@ -37,10 +37,10 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
                 "3G Calls ending in 2G (%)":["3G_QF_Calls ending in 2G(%)",3],
                 "TH DL (2G3G4G)":["User Throughput (Kbps)(kbit/s)",0],
                 "TH UL (2G3G4G)":["3G_QF_User_HSUPA_Throughput(Kbps)",0],
-                "4G CDR (VoLTE) (%)":["4G_QF_VoLTE_DCR(%)",0],
-                "4G_DCR_DATA":["4G_QF_DCR_PS(%)",0],
-                "4G CSSR (VoLTE) (%)":["4G_QF_VoLTE_CSSR(%)",0],
-                "4G CSSR PS (%)":["4G_QF_CSSR_PS_ERAB(%)",0],
+                "4G CDR (VoLTE) (%)":["4G_QF_VoLTE_DCR(%)",3],
+                "4G_DCR_DATA":["4G_QF_DCR_PS(%)",3],
+                "4G CSSR (VoLTE) (%)":["4G_QF_VoLTE_CSSR(%)",3],
+                "4G CSSR PS (%)":["4G_QF_CSSR_PS_ERAB(%)",3],
                 "4G Iniciated calls (VoLTE)":["4G_QF_VoLTE_Initiated_Calls(#)",1],
                 "4G DL Data traffic (MB)":["4G_QF_Downlink_Traffic_Volume(MB)",0],
                 "4G UL Data traffic (MB)":["4G_QF_Uplink_Traffic_Volume(MB)",0],
@@ -55,9 +55,9 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",0],
                 "4G SRVCC HO Att":["SRVCC_Att(#)",1],
                 "Tput DL 4G >2Mbps":["4G_QF_Throughput_DL(Mbps)",4,2],
                 "Tput UL 4G >500kbps":["4G_QF_Throughput_UL(Mbps)",4,0.5],
-                '4G_DCR_CS (VoLTE)':["4G_QF_VoLTE_DCR(%)",0],
-                '4G CSSR CS (VoLTE)':["4G_QF_VoLTE_CSSR(%)",0],
-                '4G_CSSR_PS_Success_Rate':["4G_QF_CSSR_PS_ERAB(%)",0],
+                '4G_DCR_CS (VoLTE)':["4G_QF_VoLTE_DCR(%)",3],
+                '4G CSSR CS (VoLTE)':["4G_QF_VoLTE_CSSR(%)",3],
+                '4G_CSSR_PS_Success_Rate':["4G_QF_CSSR_PS_ERAB(%)",3],
                 '5G_CSSR_PS_Success_Rate':[],
                 '4G VoLTE Iniciated calls':["4G_QF_VoLTE_Initiated_Calls(#)",1],       
                 '4G_Downlink_Traffic_Volume_MB':[],
@@ -120,6 +120,7 @@ def create(graphList):
             # Type of graph
             if equivalent[i[1]][1] == 0:
                 ax.plot(data["Date"], data[equivalent[i[1]][0]])
+                plt.ylim(bottom=0)
 
             elif equivalent[i[1]][1] == 1:
                 ax.bar(data["Date"], data[equivalent[i[1]][0]],color='orange',width=0.03)
