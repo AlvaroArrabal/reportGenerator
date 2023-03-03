@@ -21,13 +21,15 @@ def create(reportType,cells,techs,siteName):
         messagebox.showerror('Error','número de celdas o tecnologías vacia')
     else:
         try:
-            file_path = filedialog.askdirectory()
+            saveIn = filedialog.askdirectory()
+            babysittingPath = filedialog.askopenfilename()
+            print(babysittingPath)
             yesno = messagebox.askyesno('Información',"No cierre el programa hasta que termine.\n¿Desea continuar?")
             if yesno == True:
                 if reportType == 'Consolidación': 
-                    generate_consolidation_report(cells,techs,siteName,file_path)
+                    generate_consolidation_report(cells,techs,siteName,saveIn,babysittingPath)
                 else:
-                    generate_expansion_report(cells,techs,siteName,file_path)
+                    generate_expansion_report(cells,techs,siteName,saveIn,babysittingPath)
                 messagebox.showinfo('Información','Terminado!')
             else:
                 messagebox.showinfo('Información','Operacion cancelada.')

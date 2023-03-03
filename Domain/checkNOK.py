@@ -1,9 +1,9 @@
 from Domain.modules import analyzeKPI,getNOKreport
 
 
-def justification_consolidation(numCells,numTechs):
+def justification_consolidation(numCells,numTechs,babysittingPath):
 
-    listNOK = getNOKreport.consolidation(numCells,numTechs)
+    listNOK = getNOKreport.consolidation(numCells,numTechs,babysittingPath)
     KPIoverview = set()
 
     listNOKchecked = []
@@ -88,10 +88,10 @@ def justification_consolidation(numCells,numTechs):
     return KPIoverview, listNOKchecked
           
 
-def justification_expansion(numCells,numTechs):
+def justification_expansion(numCells,numTechs,babysittingPath):
     
     # 1º getNOK
-    listNOK = getNOKreport.expansion(numCells,numTechs)
+    listNOK = getNOKreport.expansion(numCells,numTechs,babysittingPath)
     KPIoverview = set()
 
     listNOKchecked = []

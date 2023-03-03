@@ -1,13 +1,11 @@
 import pandas as pd
 import os
-currentPath = os.getcwd()
 import warnings
 
 
 
-def expansion(numCells,numTechs):
-    pathNOK = currentPath + "\\Data\\Babysitting.xlsx"
-    df = pd.read_excel(pathNOK, engine="openpyxl")
+def expansion(numCells,numTechs,babysittingPath):
+    df = pd.read_excel(babysittingPath, engine="openpyxl")
     columns = []
 
     for i in range(0,numCells*numTechs*2,2): 
@@ -25,10 +23,9 @@ def expansion(numCells,numTechs):
                 NOKList.append([columnsList[i].iloc[0,1] , columnsList[i].iloc[j]["Unnamed: 3"]])
     return NOKList
 
-def consolidation(numCells,numTechs):
-    pathNOK = currentPath + "\\Data\\Babysitting.xlsx"
+def consolidation(numCells,numTechs,babysittingPath):
     
-    df = pd.read_excel(pathNOK, engine="openpyxl")
+    df = pd.read_excel(babysittingPath, engine="openpyxl")
 
     columns = []
 
