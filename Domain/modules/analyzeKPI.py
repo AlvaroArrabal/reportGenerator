@@ -192,6 +192,11 @@ def throughput_DL(NOK,tech):
         if type(data.iloc[i][0]) != str and data.iloc[i][0] >= target:
             cont += 1
 
+    if cont < 5:
+        return [NOK[0],NOK[1],"NOK"]        # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]         # OK
+
 def interference(NOK):
     # For ICM Band in 2G
 
