@@ -25,8 +25,8 @@ def create(reportType,cells,techs,siteName):
         messagebox.showerror('Error','número de celdas o tecnologías vacia')
     else:
         try:
-            saveIn = filedialog.askdirectory()
-            babysittingPath = filedialog.askopenfilename()
+            babysittingPath = filedialog.askopenfilename(title="Seleccione el informe")
+            saveIn = filedialog.askdirectory(title="Seleccione una ubicación para guardar el informe")
             print(babysittingPath)
             yesno = messagebox.askyesno('Información',"No cierre el programa hasta que termine.\n¿Desea continuar?")
             if yesno == True:

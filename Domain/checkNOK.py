@@ -175,5 +175,9 @@ def justification_expansion(numCells,numTechs,babysittingPath):
             case 'NR Throughput UL User':
                 listNOKchecked.append(analyzeKPI.throughput_UL(listNOK[i],"5G"))
 
-            
-    return KPIoverview, listNOKchecked
+    listNOKchecked_no_none =[]
+    for i in listNOKchecked:
+        if i != None:
+            listNOKchecked_no_none.append(i)
+
+    return KPIoverview, listNOKchecked_no_none

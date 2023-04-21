@@ -67,7 +67,7 @@ dic = { "2G CDR CS (%)":['Degradación puntual','Degradaciones repetitivas en ']
         'FDD TH DL 5G':['',''],       
         'FDD TH UL 5G':['',''],                
         'Maximo TH DL 5G':['','Sin valores de TH DL en ','Teniendo en cuenta la cantidad de tráfico que cursan las celdas, se considera que el comportamiento es el esperado'],
-        'Maximo TH UL 5G':['','Sin valores de TH en UL','Teniendo en cuenta la cantidad de tráfico que cursan las celdas, se considera que el comportamiento es el esperado'],
+        'Maximo TH UL 5G':['','Sin valores de TH UL en ','Teniendo en cuenta la cantidad de tráfico que cursan las celdas, se considera que el comportamiento es el esperado'],
         '5G SgNB_Addition_Success_Rate':['',''],               
         '5G Average User Number':['',''],              
         '5G RLC DL Traffic (GB)':['',''],

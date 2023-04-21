@@ -100,15 +100,19 @@ def create(graphList):
     for i in graphList:
         fig = plt.figure(figsize=(8,3),dpi=200)
             
-            
-        if "2G" in i[1] and "3G" not in i[1]:
+        try:
             df = getQueryData.get2G(i[0])
-        elif "3G" in i[1]:
-            df = getQueryData.get3G(i[0])
-        elif "4G" in i[1]:
-            df = getQueryData.get4G(i[0])
-        elif "5G" in i[1]:
-            df = getQueryData.get5G(i[0])
+        except:
+            try:
+                df = getQueryData.get3G(i[0])
+            except:
+                try:
+                    df = getQueryData.get4G(i[0])
+                except:
+                    try:
+                        df = getQueryData.get5G(i[0])
+                    except:
+                        print("No se encuentra KPI")
 
         if i[2] == "OK" or i[2] == "NOK":
         

@@ -1,7 +1,7 @@
 import Domain.modules.getQueryData
 import numpy as np
 
-offPeakHours = ["01:00","02:00","03:00","04:00","05:00"]
+offPeakHours = ["00:00","01:00","02:00","03:00","04:00","05:00","06:00"]
 
 def CDR(NOK,tech):
     # check for multiple peaks or a single peak (or two)
@@ -87,7 +87,7 @@ def calls_ending_3g2g(NOK):
         return [NOK[0],NOK[1],"OK"]      # OK
 
 def speech_disconnections(NOK):
-    df = Domain.modules.getQueryData.get3G(NOK[0])
+    df = Domain.modules.getQueryData.get2G(NOK[0])
     data = df.loc[:,["CELL.SPEECH.DISC.TIMES.NO.CIRCUIT.CHAN"]]
     total = data["CELL.SPEECH.DISC.TIMES.NO.CIRCUIT.CHAN"].sum()
     
