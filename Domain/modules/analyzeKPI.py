@@ -27,27 +27,56 @@ def CDR(NOK,tech):
         return [NOK[0],NOK[1],"NOK"]     # NOK
     else:
         return [NOK[0],NOK[1],"OK"]      # OK
+    
+def iniciated_calls(NOK,tech):
+
+    match tech:
+        case "2G":
+            df = Domain.modules.getQueryData.get2G(NOK[0])
+            data = df.loc[:,["2G_QF_Established_Calls(#)"]]
+            total = data["2G_QF_Established_Calls(#)"].sum()
+        case "3G":
+            df = Domain.modules.getQueryData.get3G(NOK[0])
+            data = df.loc[:,["3G_QF_Initiated_Calls(#)"]]
+            total = data["3G_QF_Initiated_Calls(#)"].sum()
+        case "4G":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:,["4G_QF_VoLTE_Initiated_Calls(#)"]]
+            total = data["4G_QF_VoLTE_Initiated_Calls(#)"].sum()
+
+    if total > 0:
+        return [NOK[0],NOK[1],"OK"]       # OK
+    else:
+        return [NOK[0],NOK[1],"NOK"]      # NOK
 
 def CSSR_voice(NOK,tech):
     match tech:
         case "2G":
             df = Domain.modules.getQueryData.get2G(NOK[0])
             data = df.loc[:,["2G_QF_CSSR_Voice(%)"]]
+            relatedKPI = "2G_QF_Established_Calls(#)"
         case "3G":
             df = Domain.modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["3G_QF_CSSR_CS(%)"]]
-        case "4G_Voice":
+            relatedKPI = "3G_QF_Initiated_Calls(#)"
+        case "4G":
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_VoLTE_CSSR(%)"]]
+            relatedKPI = "4G_QF_VoLTE_Initiated_Calls(#)"
     cont = 0
-    for i in range(len(data)):
-        if type(data.iloc[i][0]) != str and data.iloc[i][0] < 90:
-            cont += 1
+    check = iniciated_calls(NOK,tech)
 
-    if cont > 4:
-        return [NOK[0],NOK[1],"NOK"]     # NOK
+    if check[2] == "NOK":
+        return [NOK[0],NOK[1],relatedKPI]     # NOK
     else:
-        return [NOK[0],NOK[1],"OK"]      # OK
+        for i in range(len(data)):
+            if type(data.iloc[i][0]) != str and data.iloc[i][0] < 90:
+                cont += 1
+
+        if cont > 4:
+            return [NOK[0],NOK[1],"NOK"]     # NOK
+        else:
+            return [NOK[0],NOK[1],"OK"]      # OK
     
 
 def CSSR_data(NOK,tech):
@@ -58,7 +87,7 @@ def CSSR_data(NOK,tech):
         case "3G":
             df = Domain.modules.getQueryData.get3G(NOK[0])
             data = df.loc[:,["3G_QF_CSSR_PS(%)"]]
-        case "4G_Voice":
+        case "4G":
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_CSSR_PS_ERAB(%)"]]
     cont = 0
@@ -95,28 +124,7 @@ def speech_disconnections(NOK):
         return [NOK[0],NOK[1],"NOK"]     # NOK
     else:
         return [NOK[0],NOK[1],"OK"]      # OK
-def iniciated_calls(NOK,tech):
-
-    match tech:
-        case "2G":
-            df = Domain.modules.getQueryData.get2G(NOK[0])
-            data = df.loc[:,["2G_QF_Established_Calls(#)"]]
-            total = data["2G_QF_Established_Calls(#)"].sum()
-        case "3G":
-            df = Domain.modules.getQueryData.get3G(NOK[0])
-            data = df.loc[:,["3G_QF_Initiated_Calls(#)"]]
-            total = data["3G_QF_Initiated_Calls(#)"].sum()
-        case "4G":
-            df = Domain.modules.getQueryData.get4G(NOK[0])
-            data = df.loc[:,["4G_QF_VoLTE_Initiated_Calls(#)"]]
-            total = data["4G_QF_VoLTE_Initiated_Calls(#)"].sum()
     
-
-    if total > 0:
-        return [NOK[0],NOK[1],"OK"]       # OK
-    else:
-        return [NOK[0],NOK[1],"NOK"]      # NOK
-
 def traffic_UL(NOK,tech):
     match tech:
         case "3G":
@@ -307,7 +315,7 @@ def SRVCC(NOK):
     else:
         peakCalls = data["4G_QF_VoLTE_Initiated_Calls(#)"].max()
 
-        if peakCalls > 15:
+        if peakCalls > 15 or peakCalls == 0:
             return [NOK[0],NOK[1],"NOK"]        # NOK
         else:
             return [NOK[0],NOK[1],"4G_QF_VoLTE_Initiated_Calls(#)"]         # OK

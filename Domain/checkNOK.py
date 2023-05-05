@@ -23,7 +23,7 @@ def justification_consolidation(numCells,numTechs,babysittingPath):
                 listNOKchecked.append(analyzeKPI.CSSR_voice(listNOK[i],"2G"))
             case '3G CSSR CS (%)':
                 listNOKchecked.append(analyzeKPI.CSSR_voice(listNOK[i],"3G"))
-            case '4G CSSR CS (%)':
+            case '4G CSSR (VoLTE) (%)':
                 listNOKchecked.append(analyzeKPI.CSSR_voice(listNOK[i],"4G"))
             case '2G Iniciated calls':
                 listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"2G"))
@@ -103,9 +103,9 @@ def justification_expansion(numCells,numTechs,babysittingPath):
                 # 3º NOK_i = analyzeKPI
                 listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Voice"))
             case '4G CSSR CS (VoLTE)':
-                pass
+                listNOKchecked.append(analyzeKPI.CSSR_voice(listNOK[i],"4G"))
             case '4G_CSSR_PS_Success_Rate':
-                pass
+                listNOKchecked.append(analyzeKPI.CSSR_data(listNOK[i],"4G"))
             case '5G_CSSR_PS_Success_Rate':
                 pass
             case '4G VoLTE Iniciated calls':
