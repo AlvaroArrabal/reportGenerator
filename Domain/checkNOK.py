@@ -107,11 +107,11 @@ def justification_expansion(numCells,numTechs,babysittingPath):
             case '4G_CSSR_PS_Success_Rate':
                 listNOKchecked.append(analyzeKPI.CSSR_data(listNOK[i],"4G"))
             case '5G_CSSR_PS_Success_Rate':
-                pass
+                listNOKchecked.append(analyzeKPI.CSSR_data(listNOK[i],"5G"))
             case '4G VoLTE Iniciated calls':
                 listNOKchecked.append(analyzeKPI.iniciated_calls(listNOK[i],"4G"))
             case '5G Iniciated PS calls':
-                pass
+                listNOKchecked.append(analyzeKPI.users(listNOK[i]))
             case '4G_Downlink_Traffic_Volume_MB':
                 listNOKchecked.append(analyzeKPI.traffic_DL(listNOK[i],"4G"))
             case '4G_Uplink_Traffic_Volume_MB':
@@ -139,7 +139,7 @@ def justification_expansion(numCells,numTechs,babysittingPath):
             case 'CA in Secondary Cell':
                 listNOKchecked.append(analyzeKPI.CA(listNOK[i],"secondaryCell"))
             case '5G: Intra-SgNB PSCell Change Success Rate':
-                pass
+                listNOKchecked.append(analyzeKPI.intra_SGNB(listNOK[i]))
             case 'TH DL / Maximo  TH DL Diario 4G  > 7 Mbps ':
                 listNOKchecked.append(analyzeKPI.throughput_DL(listNOK[i],"4G"))
             case 'TH UL / TH UL 4G 0,5> Mbps':
@@ -157,9 +157,9 @@ def justification_expansion(numCells,numTechs,babysittingPath):
             case 'Maximo TH UL 5G':
                 listNOKchecked.append(analyzeKPI.throughput_UL(listNOK[i],"5G"))
             case '5G SgNB_Addition_Success_Rate':
-                pass
+                listNOKchecked.append(analyzeKPI.CSSR_data(listNOK[i],"5G"))
             case '5G Average User Number':
-                pass
+                listNOKchecked.append(analyzeKPI.users(listNOK[i]))
             case '5G RLC DL Traffic (GB)':
                 listNOKchecked.append(analyzeKPI.traffic_DL(listNOK[i],"5G"))
             case '5G RLC UL Traffic (GB)':

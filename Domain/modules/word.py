@@ -142,6 +142,9 @@ def create(listNOK,listNOKchecked,site,path,type):
             elif i.find('*') != -1:
                 element = i.replace('*','')
                 word.add_picture(f'.\\graphs\\{element}_{k+1}.png',width=Cm(20))
+
+    if type == 'expansion':
+        word.add_paragraph(f"Estudio RSSI bandas adyacentes: \n")
     name = path + '\\Babysitting_' + site + '.docx'
     word.save(name)
    

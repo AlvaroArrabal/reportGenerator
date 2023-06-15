@@ -90,6 +90,9 @@ def CSSR_data(NOK,tech):
         case "4G":
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_CSSR_PS_ERAB(%)"]]
+        case "5G":
+            df = Domain.modules.getQueryData.get4G(NOK[0])
+            data = df.loc[:, ["5GNR Setup Success Rate(%)"]]
     cont = 0
     for i in range(len(data)):
         if type(data.iloc[i][0]) != str and data.iloc[i][0] < 90:
@@ -350,4 +353,20 @@ def RSSI(NOK,tech):
     else:
         return [NOK[0],NOK[1],"OK"]         # OK
 
+def intra_SGNB(NOK):
+    df = Domain.modules.getQueryData.get5G(NOK[0])
+    data = df.loc[:, ["Date", "5G_QF Intra-SgNB PSCell Change Success Rate(%)"]]
 
+    if data["5G_QF Intra-SgNB PSCell Change Success Rate(%)"].max() == 100:
+        return [NOK[0],NOK[1],"OK"]
+    else:
+        return [NOK[0], NOK[1], "NOK"]
+
+def users(NOK):
+    df = Domain.modules.getQueryData.get5G(NOK[0])
+    data = df.loc[:, ["Date", "5G_QF Maximum User Number(#)"]]
+
+    if data["5G_QF Maximum User Number(#)"].max() >0:
+        return [NOK[0], NOK[1], "OK"]
+    else:
+        return [NOK[0], NOK[1], "NOK"]
