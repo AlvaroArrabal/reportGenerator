@@ -91,7 +91,7 @@ def CSSR_data(NOK,tech):
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_CSSR_PS_ERAB(%)"]]
         case "5G":
-            df = Domain.modules.getQueryData.get4G(NOK[0])
+            df = Domain.modules.getQueryData.get5G(NOK[0])
             data = df.loc[:, ["5GNR Setup Success Rate(%)"]]
     cont = 0
     for i in range(len(data)):
