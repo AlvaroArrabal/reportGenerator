@@ -37,7 +37,7 @@ dic = { "2G CDR CS (%)":['Degradación puntual','Degradaciones repetitivas en ']
         "4G CSFB E2W":['Hay intentos de CSFB','Sin intentos de CSFB en '],
         "4G CA in PCELL":['Valores correctos','Sin valores de CA en '],
         "4G CA in SCELL":['Valores correctos','Sin valores de CA en '],
-        "4G IntraLTE HOSR (including preparation) ()":['',''],
+        "4G IntraLTE HOSR (including preparation) (%)":['OK','NOK'],
         "4G SRVCC HO Att":['Hay intentos de SRVCC en','Sin intentos de SRVCC en ','Teniendo en cuenta la cantidad de llamadas iniciadas, se considera que el comportamiento es el esperado'],
         "Tput DL 4G >2Mbps":['',''],
         "Tput UL 4G >500kbps":['Valores entorno al target objetivo de TH (0.5 Mbps)','Valores bajos de TH en '],
@@ -76,7 +76,10 @@ dic = { "2G CDR CS (%)":['Degradación puntual','Degradaciones repetitivas en ']
         'Maximo  TH DL Diario 4G ':['Valores entorno al target objetivo de TH','Valores bajos de TH en '],
         'TH UL 4G':['Valores entorno al target objetivo de TH (0.5 Mbps)','Valores bajos de TH en '],
         'NR Throughput DL User':['','','Teniendo en cuenta la cantidad de tráfico que cursan las celdas, se considera que el comportamiento es el esperado.'],
-        'NR Throughput UL User':['','','Teniendo en cuenta la cantidad de tráfico que cursan las celdas, se considera que el comportamiento es el esperado.']}
+        'NR Throughput UL User':['','','Teniendo en cuenta la cantidad de tráfico que cursan las celdas, se considera que el comportamiento es el esperado.'],
+        '5G_DCR_DATA (*)':['',''],
+        '4G_DCR_DATA ':['',''],
+        '5G Inter-SgNB PSCell Change Success Rate':['','']}
 
 
 def justification(cellList):
@@ -144,7 +147,8 @@ def create(listNOK,listNOKchecked,site,path,type):
                 word.add_picture(f'.\\graphs\\{element}_{k+1}.png',width=Cm(20))
 
     if type == 'expansion':
-        word.add_paragraph(f"Estudio RSSI bandas adyacentes: \n")
+         p =word.add_paragraph()
+         p.add_run("Estudio RSSI bandas adyacentes: \n").bold = True
     name = path + '\\Babysitting_' + site + '.docx'
     word.save(name)
    

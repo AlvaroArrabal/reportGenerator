@@ -18,6 +18,9 @@ def CDR(NOK,tech):
         case "4G_Packect":
             df = Domain.modules.getQueryData.get4G(NOK[0])
             data = df.loc[:,["4G_QF_DCR_PS(%)"]]
+        case "5G":
+            df = Domain.modules.getQueryData.get5G(NOK[0])
+            data = df.loc[:,["5G_QF SgNB-Triggered Abnormal SgNB Release Rate(%)"]]
     
     cont = 0
     for i in range(len(data)):
@@ -303,8 +306,15 @@ def CA(NOK,num):
         return [NOK[0],NOK[1],"NOK"]      # NOK
 
 
-def intraLTEHosr ():
-    pass
+def intraLTEHosr (NOK):
+    df = Domain.modules.getQueryData.get4G(NOK[0])
+    data = df.loc[:,["4G_QF_IntraLTE HOSR (including preparation)(%)"]]
+    total = total = data["4G_QF_IntraLTE HOSR (including preparation)(%)"].mean()
+
+    if total < 90:
+        return [NOK[0],NOK[1],"NOK"]        # NOK
+    else:
+        return [NOK[0],NOK[1],"OK"]         # OK
 
 def SRVCC(NOK):
 
@@ -370,3 +380,13 @@ def users(NOK):
         return [NOK[0], NOK[1], "OK"]
     else:
         return [NOK[0], NOK[1], "NOK"]
+    
+
+def inter_SGNB(NOK):
+    df = Domain.modules.getQueryData.get5G(NOK[0])
+    data = df.loc[:, ["Date", "5G_QF Inter-SgNB PSCell Change Success Rate(%)"]]
+
+    if data["5G_QF Inter-SgNB PSCell Change Success Rate(%)"].mean() < 70:
+        return [NOK[0],NOK[1],"NOK"]
+    else:
+        return [NOK[0], NOK[1], "OK"]

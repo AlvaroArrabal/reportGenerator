@@ -52,7 +52,7 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",5,"2G_QF_DCR_Voice_Attempts(
                 "4G CSFB E2W":["L.CSFB.PrepAtt",1],
                 "4G CA in PCELL":["4G_QF_CA_Primary_Cell(%)",0],
                 "4G CA in SCELL":["4G_QF_CA_Secondary_Cell(%)",0],
-                "4G IntraLTE HOSR (including preparation) ()":["4G_QF_IntraLTE HOSR (including preparation)()",0],
+                "4G IntraLTE HOSR (including preparation) (%)":["4G_QF_IntraLTE HOSR (including preparation)(%)",3],
                 "4G SRVCC HO Att":["SRVCC_Att(#)",1],
                 "Tput DL 4G >2Mbps":["4G_QF_Throughput_DL(Mbps)",4,2],
                 "Tput UL 4G >500kbps":["4G_QF_Throughput_UL(Mbps)",4,0.5],
@@ -71,7 +71,7 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",5,"2G_QF_DCR_Voice_Attempts(
                 '4G_Availability_Cell_Rate_Hourly':["4G_QF_Cell_Availability_Rate_Hourly(%)",2],
                 '5G_Availability_Cell_Rate_Hourly':["5G_QF Cell Availability(%)",2],
                 '4G_% MIMO':["4G_QF_MIMO_RANK2(%)",0],
-                'CSFB attempts (L.CSFB.E2W + L.CSFB.E2G)':[],
+                'CSFB attempts (L.CSFB.E2W + L.CSFB.E2G)':["4G_QF_CSFB_E2W_Attempts(#)",1],
                 'CA in Primary Cell':["4G_QF_CA_Primary_Cell(%)",0],
                 'CA in Secondary Cell':["4G_QF_CA_Secondary_Cell(%)",0],
                 '5G: Intra-SgNB PSCell Change Success Rate':["5G_QF Intra-SgNB PSCell Change Success Rate(%)",3],
@@ -90,7 +90,11 @@ equivalent = {"2G CDR CS (%)":["2G_QF_DCR_Voice(%)",5,"2G_QF_DCR_Voice_Attempts(
                 'TH UL 4G':["4G_QF_Throughput_UL(Mbps)",4,0.5],
                 'NR Throughput DL User':["5G_QF DL Throughput Cell(Mbps)",0],
                 'NR Throughput UL User':["5G_QF UL Throughput Cell(Mbps)",0],
-                '5G Iniciated PS calls':["5G_QF Maximum User Number(#)",1]}
+                '5G Iniciated PS calls':["5G_QF Maximum User Number(#)",1],
+                '5G_DCR_DATA (*)':["5G_QF SgNB-Triggered Abnormal SgNB Release Rate(%)",3],
+                '4G_DCR_DATA ':["4G_QF_DCR_PS(%)",3],
+                '5G Inter-SgNB PSCell Change Success Rate':["5G_QF Inter-SgNB PSCell Change Success Rate(%)",3],
+            }
 
 def create(graphList):
     pos = 1
@@ -140,7 +144,7 @@ def create(graphList):
                 data["Date"] = pd.to_datetime(data["Date"])
                 
                 ax.fill_between(data["Date"], data[equivalent[i[1]][0]],color='cornflowerblue',edgecolor='black')
-                plt.ylim(0,110)
+                plt.ylim(0,10)
 
             elif equivalent[i[1]][1] == 3:
                 data = df.loc[:,["Date",equivalent[i[1]][0]]]

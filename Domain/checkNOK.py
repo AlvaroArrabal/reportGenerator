@@ -74,7 +74,7 @@ def justification_consolidation(numCells,numTechs,babysittingPath):
             case '3G Calls ending in 2G (%)':
                 listNOKchecked.append(analyzeKPI.calls_ending_3g2g(listNOK[i]))
             case '4G IntraLTE HOSR (including preparation) (%)':
-                pass
+                listNOKchecked.append(analyzeKPI.intraLTEHosr(listNOK[i]))
             case '4G SRVCC HO Att':
                 listNOKchecked.append(analyzeKPI.SRVCC(listNOK[i]))
             case "2G CSSR PS (%)":
@@ -174,6 +174,14 @@ def justification_expansion(numCells,numTechs,babysittingPath):
                 listNOKchecked.append(analyzeKPI.throughput_DL(listNOK[i],"5G"))
             case 'NR Throughput UL User':
                 listNOKchecked.append(analyzeKPI.throughput_UL(listNOK[i],"5G"))
+            case '5G Inter-SgNB PSCell Change Success Rate':
+                print(1)
+                listNOKchecked.append(analyzeKPI.inter_SGNB(listNOK[i]))
+                print(2)
+            case '4G_DCR_DATA ':
+                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"4G_Packect"))
+            case '5G_DCR_DATA (*)':
+                listNOKchecked.append(analyzeKPI.CDR(listNOK[i],"5G"))
 
     listNOKchecked_no_none =[]
     for i in listNOKchecked:
@@ -181,3 +189,7 @@ def justification_expansion(numCells,numTechs,babysittingPath):
             listNOKchecked_no_none.append(i)
 
     return KPIoverview, listNOKchecked_no_none
+
+
+
+ 
