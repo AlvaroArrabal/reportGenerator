@@ -42,7 +42,7 @@ dic = { "2G CDR CS (%)":['Degradación puntual','Degradaciones repetitivas en ']
         "Tput DL 4G >2Mbps":['',''],
         "Tput UL 4G >500kbps":['Valores entorno al target objetivo de TH (0.5 Mbps)','Valores bajos de TH en '],
         '4G_DCR_CS (VoLTE)':['',''],
-        '4G CSSR CS (VoLTE)':['Degradación puntual','MIRAR HUELLA en'],
+        '4G CSSR CS (VoLTE)':['Degradación puntual','MIRAR HUELLA en','Al no haber llamadas iniciadas este KPI se ve degradado'],
         '4G_CSSR_PS_Success_Rate':['Degradación puntual','MIRAR HUELLA en'],
         '5G_CSSR_PS_Success_Rate':['',''],
         '4G VoLTE Iniciated calls':['',''],       
@@ -79,7 +79,7 @@ dic = { "2G CDR CS (%)":['Degradación puntual','Degradaciones repetitivas en ']
         'NR Throughput UL User':['','','Teniendo en cuenta la cantidad de tráfico que cursan las celdas, se considera que el comportamiento es el esperado.'],
         '5G_DCR_DATA (*)':['',''],
         '4G_DCR_DATA ':['',''],
-        '5G Inter-SgNB PSCell Change Success Rate':['','']}
+        '5G Inter-SgNB PSCell Change Success Rate':['Valores correctos','Degradacion Inter SgNB en los sectores','']}
 
 
 def justification(cellList):
